@@ -1,0 +1,77 @@
+Actors:
+- customer
+- operator
+- driver
+- manager
+
+Customer:
+1. As a customer I want to create a new ORDER. Price should be auto-calculated.
+2. As a customer I want to see all MY orders (impleicitly filter to user) with
+	- filtering:
+		- status
+		- date range
+		- start location
+		- end location
+	- sorting:
+		- price
+		- date
+3. As a customer I want to cancel my not yet started orders
+4. As a customer I want to be notified from my order status changes in email
+
+
+Operator:
+1. As an operator I want to list all of the orders with
+	- filtering (multi-filter with AND between filter type values, single select for each):
+		- customer
+		- status
+		- date range
+		- start & end location
+		- asssigned vehicle
+		- cargo type
+	- sorting:
+		- date
+		- price
+2. As an operator I want to assign available vehicles to orders.
+	After I've selected a given unassigned order, I want to see the following:
+		- cargo details:
+			- type & ammount
+			- start & end location
+			- deadline
+		- list of available vehicles ordered by "Vehicle fitting score".
+3. As an operator I want to cancel an order and notify the customer with an email
+
+
+Driver:
+1. As a driver I want to see all the orders assigned to me with the following filtered fields:
+			- customer name
+			- start & end location details
+			- cargo type & ammount
+			- Planned date
+		with filtering:
+			- date range
+			- simple date selectors, like "past", "upcoming"
+2. As a driver I want to get an summary in email from all the details mentioned above from my next day
+3. As a driver I want to update the status of a given  order assigned to me (picked-up, done, failed, etc.)
+
+
+Manager:
+1. As a manager I want to get the following reports:
+	- Order summary: ammount & price with optional grouping by customers
+		Date range should be configurable & there should be some built-in as well:
+			- actual month
+			- actual week
+			- previous month
+	- Order details with filtering options to:
+		- status
+		- date range
+		- deadline omission
+	
+
+
+Definitions:
+	- Vehicle fitting score: this score will be calculated based on the following factors for available vehicles:
+		- operational cost (fuel consumption, probably wage for drivers based on driving hours)
+		- the distance between the depot & start/stop location -> minimize distance and working hours
+		- capacity fitting: avoid waste of free space by assign large capacity vehicles to small cargo
+		
+		

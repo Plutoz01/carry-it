@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-@Component({
-  selector: 'ci-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
+@Component( {
+    selector: 'ci-root',
+    templateUrl: './app.component.html',
+    styleUrls: [ './app.component.scss' ]
+} )
 export class AppComponent {
-  title = 'carry-it-ui';
+    title = 'carry-it-ui';
 }

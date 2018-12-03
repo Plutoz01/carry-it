@@ -3,6 +3,7 @@ Actors:
 - operator
 - driver
 - manager
+- administrator
 
 Customer:
 1. As a customer I want to create a new ORDER. Price should be auto-calculated.
@@ -67,6 +68,11 @@ Manager:
 		- deadline omission
 	
 
+Administrator:
+1. As a manager I want to manage (create, list, update and soft-delete):
+	- depots
+	- vehicles
+	- users (with Roles)
 
 Definitions:
 	- Vehicle fitting score: this score will be calculated based on the following factors for available vehicles:

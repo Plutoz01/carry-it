@@ -1,20 +1,19 @@
 package com.plutoz.carryit.vehicledepot.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
+import javax.persistence.*;
+
+@Data
 @Entity
 public class Vehicle {
 
     @Id
     private Long id;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @JsonIgnore
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="depot_id")
+    private Depot depot;
 }

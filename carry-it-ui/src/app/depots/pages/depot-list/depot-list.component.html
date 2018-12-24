@@ -1,0 +1,3 @@
+<ci-template-list [items]="depots$ | async" [itemTemplate]="depotItemTpl" [trackByFn]="depotTrackByFn"></ci-template-list>
+
+<ng-template #depotItemTpl let-depot>{{depot.name}}</ng-template>

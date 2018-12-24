@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { TemplateListModule } from '../shared/template-list/template-list.module';
 import { VehicleListComponent } from './pages/vehicle-list/vehicle-list.component';
 import { VehicleService } from './services/vehicle.service';
 import { VehiclesRoutingModule } from './vehicles-routing.module.';
@@ -10,7 +11,9 @@ import { VehiclesRoutingModule } from './vehicles-routing.module.';
     imports: [
         CommonModule,
         HttpClientModule,
-        VehiclesRoutingModule
+
+        VehiclesRoutingModule,
+        TemplateListModule
     ],
     providers: [
         VehicleService

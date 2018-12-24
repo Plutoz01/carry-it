@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Vehicle } from '../../models/vehicle.interface';
 import { VehicleService } from '../../services/vehicle.service';
@@ -17,4 +17,5 @@ export class VehicleListComponent {
         this.vehicles$ = vehicleService.getAll$();
     }
 
+    public readonly vehicleTrackByFn: TrackByFunction<Vehicle> = ( idx, vehicle: Vehicle ) => vehicle.id;
 }

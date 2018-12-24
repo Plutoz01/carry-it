@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Vehicle } from '../../models/vehicle.interface';
 import { VehicleService } from '../../services/vehicle.service';
 
 @Component( {
@@ -10,7 +11,7 @@ import { VehicleService } from '../../services/vehicle.service';
 } )
 export class VehicleListComponent {
 
-    public readonly vehicles$: Observable<string[]>;
+    public readonly vehicles$: Observable<Vehicle[]>;
 
     constructor( private readonly vehicleService: VehicleService ) {
         this.vehicles$ = vehicleService.getAll$();

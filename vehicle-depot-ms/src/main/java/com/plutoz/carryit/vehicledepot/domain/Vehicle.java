@@ -16,4 +16,6 @@ public class Vehicle {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="depot_id")
     private Depot depot;
+
+    private String licencePlate;
 }

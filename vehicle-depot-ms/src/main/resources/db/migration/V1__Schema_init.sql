@@ -11,6 +11,7 @@ CREATE TABLE vehicle
 (
    id BIGSERIAL NOT NULL,
    depot_id BIGINT NOT NULL,
+   licence_plate TEXT NOT NULL,
    CONSTRAINT vehicle_pkey PRIMARY KEY (id),
    CONSTRAINT depot_id_fkey FOREIGN KEY (depot_id)
          REFERENCES depot (id) MATCH SIMPLE
@@ -28,16 +29,16 @@ INSERT INTO depot(id, name) VALUES
 (3, 'Depot 3');
 SELECT setval('depot_id_seq', 4, true);
 
-INSERT INTO vehicle(id, depot_id) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 2),
-(5, 2),
-(6, 3),
-(7, 3),
-(8, 3),
-(9, 3);
+INSERT INTO vehicle(id, depot_id, licence_plate) VALUES
+(1, 1, 'D1-001'),
+(2, 1, 'D1-002'),
+(3, 1, 'D1-003'),
+(4, 2, 'D2-001'),
+(5, 2, 'D2-002'),
+(6, 3, 'D3-001'),
+(7, 3, 'D3-002'),
+(8, 3, 'D3-003'),
+(9, 3, 'D3-004');
 SELECT setval('vehicle_id_seq', 10, true);
 
 

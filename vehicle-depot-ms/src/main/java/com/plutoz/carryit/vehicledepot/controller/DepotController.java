@@ -4,15 +4,13 @@ import com.plutoz.carryit.vehicledepot.domain.Depot;
 import com.plutoz.carryit.vehicledepot.domain.Vehicle;
 import com.plutoz.carryit.vehicledepot.service.DepotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/depot")
 public class DepotController {

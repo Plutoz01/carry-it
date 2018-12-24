@@ -1,10 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Vehicle } from '../models/vehicle.interface';
 
 @Injectable()
 export class VehicleService {
 
-    public getAll$(): Observable<string[]> {
-        return of( [ 'vehicle 1', 'vehicle 2', 'vehicle 3' ] );
+    public static readonly getAllVehiclesUrl = 'http://localhost:8100/api/v1/vehicle'; // TODO: retrieve this from common config src
+
+    constructor( private readonly http: HttpClient ) {
+    }
+
+    public getAll$(): Observable<Vehicle[]> {
+        return this.http.get<Vehicle[]>( VehicleService.getAllVehiclesUrl );
     }
 }

@@ -3,6 +3,7 @@ package com.plutoz.carryit.vehicledepot.domain;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 public class Depot {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     private String name;

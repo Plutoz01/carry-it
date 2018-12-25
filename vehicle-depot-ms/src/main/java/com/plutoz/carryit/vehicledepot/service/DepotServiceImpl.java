@@ -5,10 +5,12 @@ import com.plutoz.carryit.vehicledepot.repository.DepotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DepotServiceImpl implements DepotService {
 
     private final DepotRepository repository;

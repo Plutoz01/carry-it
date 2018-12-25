@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,6 +21,11 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public Optional<Vehicle> findById(long id) {
+        return repository.findById(id);
+    }
+
+    @Override
     public List<Vehicle> findAll() {
         return repository.findAll();
     }
@@ -27,5 +33,10 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<Vehicle> findByDepotId(long depotId) {
         return repository.findByDepotId(depotId);
+    }
+
+    @Override
+    public int countByDepotId(long depotId) {
+        return repository.countByDepotId(depotId);
     }
 }

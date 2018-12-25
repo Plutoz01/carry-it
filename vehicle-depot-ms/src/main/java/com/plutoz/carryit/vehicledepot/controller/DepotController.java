@@ -3,10 +3,10 @@ package com.plutoz.carryit.vehicledepot.controller;
 import com.plutoz.carryit.vehicledepot.domain.Depot;
 import com.plutoz.carryit.vehicledepot.domain.Vehicle;
 import com.plutoz.carryit.vehicledepot.service.DepotService;
+import com.plutoz.carryit.vehicledepot.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +16,12 @@ import java.util.Optional;
 public class DepotController {
 
     private final DepotService depotService;
+    private final VehicleService vehicleService;
 
     @Autowired
-    public DepotController(DepotService depotService) {
+    public DepotController(DepotService depotService, VehicleService vehicleService) {
         this.depotService = depotService;
+        this.vehicleService = vehicleService;
     }
 
     @GetMapping
@@ -36,7 +38,6 @@ public class DepotController {
 
     @GetMapping("/{depotId}/vehicles")
     public List<Vehicle> getVehiclesOfADepot(@PathVariable long depotId) {
-        Optional<Depot> result = depotService.findById(depotId);
-        return result.isPresent() ? result.get().getVehicles() : Collections.emptyList();
+        return vehicleService.findByDepotId(depotId);
     }
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     List<Vehicle> findByDepotId(long depotId);
+
+    int countByDepotId(long depotId);
 }

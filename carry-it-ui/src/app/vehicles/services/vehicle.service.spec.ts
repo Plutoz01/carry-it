@@ -1,17 +1,13 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { environment } from '../../../environments/environment';
-import { APP_CONFIG } from '../../core/tokens/app-config.token';
+import { GetAllVehicleQuery } from '../../graphql-api/queries/vehicles/get-all.query';
+import { GetAllVehicleQueryMock } from '../../graphql-api/queries/vehicles/get-all.query.mock';
 import { VehicleService } from './vehicle.service';
 
 describe( 'VehicleService', () => {
     beforeEach( () => TestBed.configureTestingModule( {
-        imports: [
-            HttpClientTestingModule
-        ],
         providers: [
             VehicleService,
-            { provide: APP_CONFIG, useValue: environment.appConfig } // TODO: replace to test appConfig
+            { provide: GetAllVehicleQuery, useClass: GetAllVehicleQueryMock }
         ]
     } ) );
 

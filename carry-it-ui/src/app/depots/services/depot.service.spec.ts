@@ -1,7 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { environment } from '../../../environments/environment';
-import { APP_CONFIG } from '../../core/tokens/app-config.token';
+import { GetAllDepotQuery } from '../../graphql-api/queries/depots/get-all.query';
+import { GetAllDepotQueryMock } from '../../graphql-api/queries/depots/get-all.query.mock';
 
 import { DepotService } from './depot.service';
 
@@ -12,7 +12,7 @@ describe( 'DepotService', () => {
         ],
         providers: [
             DepotService,
-            { provide: APP_CONFIG, useValue: environment.appConfig } // TODO: replace to test appConfig
+            { provide: GetAllDepotQuery, useClass: GetAllDepotQueryMock }
         ]
     } ) );
 

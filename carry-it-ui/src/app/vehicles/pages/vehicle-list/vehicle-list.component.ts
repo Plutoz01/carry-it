@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Vehicle } from '../../models/vehicle.interface';
+import { Vehicle } from '../../../domain';
 import { VehicleService } from '../../services/vehicle.service';
 
 @Component( {

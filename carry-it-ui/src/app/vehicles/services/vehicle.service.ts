@@ -1,20 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppConfig } from '../../core/models/app-config.interface';
-import { APP_CONFIG } from '../../core/tokens/app-config.token';
-import { Vehicle } from '../models/vehicle.interface';
+import { map } from 'rxjs/operators';
+import { GetAllVehicleQuery } from '../../graphql-api/queries/vehicles/get-all.query';
+import { Vehicle } from '../../domain';
 
 @Injectable()
 export class VehicleService {
-    readonly getAllVehicleEndpoint = `${this.appConfig.apiBaseUrl}/v1/vehicle`;
 
-    constructor(
-        @Inject( APP_CONFIG ) private readonly appConfig: AppConfig,
-        private readonly http: HttpClient ) {
+    constructor( private readonly getAllVehicleQuery: GetAllVehicleQuery ) {
     }
 
     getAll$(): Observable<Vehicle[]> {
-        return this.http.get<Vehicle[]>( this.getAllVehicleEndpoint );
+        return this.getAllVehicleQuery.fetch().pipe(
+            map( response => response.data.getAllVehicle )
+        );
     }
 }

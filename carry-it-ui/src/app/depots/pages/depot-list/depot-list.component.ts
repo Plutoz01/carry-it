@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Depot } from '../../models/depot.interface';
+import { Depot } from '../../../domain';
 import { DepotService } from '../../services/depot.service';
 
 @Component( {

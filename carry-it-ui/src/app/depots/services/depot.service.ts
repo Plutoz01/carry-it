@@ -1,20 +1,19 @@
-import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppConfig } from '../../core/models/app-config.interface';
-import { APP_CONFIG } from '../../core/tokens/app-config.token';
-import { Depot } from '../models/depot.interface';
+import { map } from 'rxjs/operators';
+import { Depot } from '../../domain';
+import { GetAllDepotQuery } from '../../graphql-api/queries/depots/get-all.query';
+
 
 @Injectable()
 export class DepotService {
-    readonly getAllDepotsEndpoint = `${this.appConfig.apiBaseUrl}/v1/depot`;
 
-    constructor(
-        @Inject( APP_CONFIG ) private readonly appConfig: AppConfig,
-        private readonly http: HttpClient ) {
+    constructor( private readonly getAllDepotQuery: GetAllDepotQuery ) {
     }
 
     getAll$(): Observable<Depot[]> {
-        return this.http.get<Depot[]>( this.getAllDepotsEndpoint );
+        return this.getAllDepotQuery.fetch().pipe(
+            map( response => response.data.getAllDepot)
+        );
     }
 }

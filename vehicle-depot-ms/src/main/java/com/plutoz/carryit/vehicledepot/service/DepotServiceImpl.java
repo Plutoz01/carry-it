@@ -3,6 +3,8 @@ package com.plutoz.carryit.vehicledepot.service;
 import com.plutoz.carryit.vehicledepot.domain.Depot;
 import com.plutoz.carryit.vehicledepot.repository.DepotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,6 +25,11 @@ public class DepotServiceImpl implements DepotService {
     @Override
     public List<Depot> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public Page<Depot> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override

@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { Query } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Depot } from '../../../domain';
+import { PagedResponse } from '../../models/pagination.interface';
 
 export interface GetAllDepotResponse {
-    getAllDepot: Depot[];
+    getAllDepot: PagedResponse<Depot>;
 }
 
 @Injectable()
 export class GetAllDepotQuery extends Query<GetAllDepotResponse> {
     document = gql`
-        query GetAllDepot {
-            getAllDepot {
-                id,
-                name,
-                vehicleCount
+        query GetAllDepot($page: Int!, $size: Int!) {
+            getAllDepot(page: {page: $page, size: $size}) {
+                pageInfo { totalElements, totalPages },
+                items { id, name, vehicleCount }
             }
         }`;
 }

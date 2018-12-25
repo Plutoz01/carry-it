@@ -1,0 +1,15 @@
+extend type Query {
+    getAllDepot(page: Page): PagedDepots!
+}
+
+type Depot {
+    id: ID!
+    name: String!
+    vehicles: [Vehicle]!
+    vehicleCount: Int!
+}
+
+type PagedDepots {
+    items: [Depot]!
+    pageInfo: PageInfo!
+}

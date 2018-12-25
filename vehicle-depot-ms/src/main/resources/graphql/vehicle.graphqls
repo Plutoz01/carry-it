@@ -1,0 +1,16 @@
+extend type Query {
+    getAllVehicle(page: Page): PagedVehicles!
+    getVehicleById(id: ID): Vehicle
+}
+
+type Vehicle {
+    id: ID!
+    licencePlate: String!
+    depotId: ID!
+    depot: Depot!
+}
+
+type PagedVehicles {
+    items: [Vehicle]!
+    pageInfo: PageInfo!
+}

@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class DepotResolver implements GraphQLResolver<Depot> {
+public class DepotFieldResolver implements GraphQLResolver<Depot> {
 
     private final VehicleService vehicleService;
 
     @Autowired
-    public DepotResolver(VehicleService vehicleService) {
+    public DepotFieldResolver(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
 

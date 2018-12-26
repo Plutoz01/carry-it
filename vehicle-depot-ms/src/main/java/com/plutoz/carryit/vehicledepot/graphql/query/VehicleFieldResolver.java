@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VehicleResolver implements GraphQLResolver<Vehicle> {
+public class VehicleFieldResolver implements GraphQLResolver<Vehicle> {
 
     private final DepotService depotService;
 
     @Autowired
-    public VehicleResolver(DepotService depotService) {
+    public VehicleFieldResolver(DepotService depotService) {
         this.depotService = depotService;
     }
 

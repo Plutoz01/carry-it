@@ -36,4 +36,9 @@ public class DepotServiceImpl implements DepotService {
     public Optional<Depot> findById(long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Depot save(Depot depot) {
+        return repository.save(depot);
+    }
 }

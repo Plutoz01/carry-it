@@ -1,16 +1,15 @@
-package com.plutoz.carryit.vehicledepot.queryresolver;
+package com.plutoz.carryit.vehicledepot.graphql.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.plutoz.carryit.vehicledepot.domain.Depot;
-import com.plutoz.carryit.vehicledepot.queryresolver.pagination.Page;
+import com.plutoz.carryit.vehicledepot.graphql.query.pagination.PagedResponse;
+import com.plutoz.carryit.vehicledepot.graphql.query.pagination.Page;
 import com.plutoz.carryit.vehicledepot.domain.Vehicle;
-import com.plutoz.carryit.vehicledepot.queryresolver.pagination.PagedResponse;
 import com.plutoz.carryit.vehicledepot.service.DepotService;
 import com.plutoz.carryit.vehicledepot.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component

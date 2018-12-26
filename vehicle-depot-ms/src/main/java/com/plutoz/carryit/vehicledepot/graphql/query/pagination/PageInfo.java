@@ -1,4 +1,4 @@
-package com.plutoz.carryit.vehicledepot.queryresolver.pagination;
+package com.plutoz.carryit.vehicledepot.graphql.query.pagination;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;

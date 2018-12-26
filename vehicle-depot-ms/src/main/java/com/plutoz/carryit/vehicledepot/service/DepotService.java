@@ -14,4 +14,6 @@ public interface DepotService {
     Page<Depot> findAll(Pageable pageable);
 
     Optional<Depot> findById(long id);
+
+    Depot save(Depot depot);
 }

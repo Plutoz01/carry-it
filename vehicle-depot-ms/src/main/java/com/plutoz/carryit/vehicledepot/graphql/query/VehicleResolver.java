@@ -1,4 +1,4 @@
-package com.plutoz.carryit.vehicledepot.queryresolver;
+package com.plutoz.carryit.vehicledepot.graphql.query;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.plutoz.carryit.vehicledepot.domain.Depot;

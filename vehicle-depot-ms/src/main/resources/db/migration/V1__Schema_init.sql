@@ -6,6 +6,8 @@ CREATE TABLE depot
 );
 ALTER TABLE depot
   OWNER TO carryit;
+ALTER SEQUENCE public.depot_id_seq INCREMENT 20;
+
 
 CREATE TABLE vehicle
 (
@@ -19,7 +21,7 @@ CREATE TABLE vehicle
 );
 ALTER TABLE vehicle
   OWNER TO carryit;
-
+ALTER SEQUENCE public.vehicle_id_seq INCREMENT 20;
 
 -- Fill with initial data
 

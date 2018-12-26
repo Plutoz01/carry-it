@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { GraphqlApiModule } from '../graphql-api/graphql-api.module';
-import { TemplateListModule } from '../shared/template-list/template-list.module';
+import { ConsumerPageableListModule } from '../shared/consumer-pageable-list/consumer-pageable-list.module';
 import { DepotsRoutingModule } from './depots-routing.module';
 import { DepotListComponent } from './pages/depot-list/depot-list.component';
 import { DepotService } from './services/depot.service';
@@ -13,7 +13,7 @@ import { DepotService } from './services/depot.service';
 
         GraphqlApiModule,
         DepotsRoutingModule,
-        TemplateListModule
+        ConsumerPageableListModule
     ],
     providers: [
         DepotService

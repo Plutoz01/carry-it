@@ -1,0 +1,13 @@
+<ci-pageable-list class="ci-vehicle-list"
+				  [items]="items$ | async"
+				  [itemTemplate]="itemTemplate"
+				  [trackByFn]="trackByFn"
+				  [actualPage]="actualPage$ | async"
+				  [itemsCount]="totalItems$ | async"
+				  [totalPages]="totalPages$ | async"
+				  [pageSize]="pageSize$ | async"
+				  [pageRangeWidth]="3"
+				  (pageChange)="onPageChange($event)"
+				  (pageSizeChange)="onPageSizeChange($event)"
+				  (itemClick)="itemClick.emit($event)"
+></ci-pageable-list>

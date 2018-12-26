@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
-import { Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
 import { Depot } from '../../../domain';
+import { IPageableItemGeneratorFn } from '../../../graphql-api/models/pagination.interface';
 import { DepotService } from '../../services/depot.service';
 
 @Component( {
@@ -12,14 +11,15 @@ import { DepotService } from '../../services/depot.service';
 } )
 export class DepotListComponent {
 
-    public readonly depots$: Observable<Depot[]>;
-
     constructor( private readonly depotService: DepotService ) {
-        this.depots$ = depotService.getAll$().pipe(
-            pluck( 'items' )
-        );
     }
+
+    public readonly depotGeneratorFn: IPageableItemGeneratorFn<Depot> =
+        ( page: number, size: number ) => this.depotService.getAll$( page, size );
 
     public readonly depotTrackByFn: TrackByFunction<Depot> = ( idx, depot: Depot ) => depot.id;
 
+    onDepotClick( depot: Depot ): void {
+        console.log( 'depot clicked: ', depot );
+    }
 }

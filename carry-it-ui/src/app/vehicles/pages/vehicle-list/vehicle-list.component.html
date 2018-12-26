@@ -1,18 +1,11 @@
-<ci-pageable-list class="ci-vehicle-list"
-		[items]="vehicles$ | async"
+<ci-consumer-pageable-list
 		[itemTemplate]="vehicleItemTpl"
 		[trackByFn]="vehicleTrackByFn"
-		[actualPage]="actualPage$ | async"
-		[itemsCount]="totalItems$ | async"
-		[totalPages]="totalPages$ | async"
-		[pageSize]="pageSize$ | async"
-		[pageRangeWidth]="3"
-		(pageChange)="onPageChange($event)"
-		(pageSizeChange)="onPageSizeChange($event)"
+		[pageableItemGeneratorFn]="vehicleGeneratorFn"
 		(itemClick)="onVehicleClick($event)"
-></ci-pageable-list>
+></ci-consumer-pageable-list>
 
 <ng-template #vehicleItemTpl let-vehicle>
 	<span class="badge badge-pill badge-info mr-2">{{vehicle?.depot?.name}}</span>
-	<span>{{vehicle.licencePlate}}</span>
+	<label>{{vehicle.licencePlate}}</label>
 </ng-template>

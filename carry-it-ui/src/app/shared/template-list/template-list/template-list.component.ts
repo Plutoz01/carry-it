@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, TemplateRef, TrackByFunction } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, TrackByFunction } from '@angular/core';
 import { TemplateListItemContext } from '../template-list-item-context.interface';
 
 @Component( {
@@ -11,4 +11,5 @@ export class TemplateListComponent<T> {
     @Input() items: T[] = [];
     @Input() itemTemplate?: TemplateRef<TemplateListItemContext<T>>;
     @Input() trackByFn?: TrackByFunction<T>;
+    @Output() itemClick = new EventEmitter<T>();
 }

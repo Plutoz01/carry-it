@@ -1,0 +1,19 @@
+.ci-paginator {
+  user-select: none;
+  display: flex;
+
+
+  .ci-paginator-button {
+	padding: 2px 4px;
+	cursor: pointer;
+
+	&.selected {
+	  font-weight: bold;
+	}
+
+	&.disabled {
+	  cursor: default;
+	  opacity: 0.5;
+	}
+  }
+}

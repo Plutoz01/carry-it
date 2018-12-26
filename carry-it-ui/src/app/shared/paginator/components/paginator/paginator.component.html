@@ -1,0 +1,24 @@
+<span class="ci-paginator">
+	<span *ngIf="firstAndLastButtonVisible" class="ci-paginator-button first-button" [ngClass]=" { disabled: isFirstButtonDisabled }"
+		  (click)="onFirst()">
+		<fa-icon [icon]="faFirstIcon"></fa-icon>
+	</span>
+	<span *ngIf="prevAndNextButtonVisible" class="ci-paginator-button prev-button" [ngClass]=" { disabled: isPrevButtonDisabled }"
+		  (click)="onPrevious()">
+		<fa-icon [icon]="faLeftIcon"></fa-icon>
+	</span>
+
+	<div class="ci-paginator-button" *ngFor="let pageNumber of pageRange" [ngClass]="{ selected: pageNumber === actualPage }"
+		  (click)="onNumberClick( pageNumber )"  >
+		{{ pageNumber + 1 }}
+	</div>
+
+	<span *ngIf="prevAndNextButtonVisible" class="ci-paginator-button next-button" [ngClass]=" { disabled: isNextButtonDisabled }"
+		  (click)="onNext()">
+		<fa-icon [icon]="faRightIcon"></fa-icon>
+	</span>
+	<span *ngIf="firstAndLastButtonVisible" class="ci-paginator-button last-button" [ngClass]=" { disabled: isLastButtonDisabled }"
+		  (click)="onLast()">
+		<fa-icon [icon]="faLastIcon"></fa-icon>
+	</span>
+</span>

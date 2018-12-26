@@ -1,3 +1,18 @@
-<ci-template-list [items]="vehicles$ | async" [itemTemplate]="vehicleItemTpl" [trackByFn]="vehicleTrackByFn"></ci-template-list>
+<ci-pageable-list class="ci-vehicle-list"
+		[items]="vehicles$ | async"
+		[itemTemplate]="vehicleItemTpl"
+		[trackByFn]="vehicleTrackByFn"
+		[actualPage]="actualPage$ | async"
+		[itemsCount]="totalItems$ | async"
+		[totalPages]="totalPages$ | async"
+		[pageSize]="pageSize$ | async"
+		[pageRangeWidth]="3"
+		(pageChange)="onPageChange($event)"
+		(pageSizeChange)="onPageSizeChange($event)"
+		(itemClick)="onVehicleClick($event)"
+></ci-pageable-list>
 
-<ng-template #vehicleItemTpl let-vehicle>{{vehicle.licencePlate}} ({{vehicle?.depot?.name}})</ng-template>
+<ng-template #vehicleItemTpl let-vehicle>
+	<span class="badge badge-pill badge-info mr-2">{{vehicle?.depot?.name}}</span>
+	<span>{{vehicle.licencePlate}}</span>
+</ng-template>

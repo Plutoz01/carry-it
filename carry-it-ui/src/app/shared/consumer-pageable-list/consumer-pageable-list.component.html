@@ -2,6 +2,8 @@
 				  [items]="items$ | async"
 				  [itemTemplate]="itemTemplate"
 				  [trackByFn]="trackByFn"
+				  [selectable]="selectable"
+				  [selected]="selected"
 				  [actualPage]="actualPage$ | async"
 				  [itemsCount]="totalItems$ | async"
 				  [totalPages]="totalPages$ | async"
@@ -10,4 +12,5 @@
 				  (pageChange)="onPageChange($event)"
 				  (pageSizeChange)="onPageSizeChange($event)"
 				  (itemClick)="itemClick.emit($event)"
+				  (selectionChange)="selectionChange.emit($event)"
 ></ci-pageable-list>

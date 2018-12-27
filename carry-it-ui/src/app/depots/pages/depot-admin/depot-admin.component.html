@@ -1,0 +1,18 @@
+<ci-master-detail
+	[listItemTemplate]="depotItemTpl"
+	[listTrackByFn]="depotTrackByFn"
+	[pageableItemGeneratorFn]="depotListGeneratorFn"
+	[selected]="depotDetailsItem$ | async"
+	[detailsItem]="depotDetailsItem$ | async"
+	[detailsTemplate]="depotDetailsTpl"
+	(selectionChange)="onSelectionChange($event)"
+></ci-master-detail>
+
+<ng-template #depotItemTpl let-depot let-isSelected="isSelected">
+	<label [ngClass]="{ 'font-weight-bold': isSelected }">{{depot.name}}</label>
+	<span class="badge badge-pill badge-info ml-2">{{depot?.vehicleCount || 0}} vehicle(s)</span>
+</ng-template>
+
+<ng-template #depotDetailsTpl let-depot>
+	<h1>details present: {{depot?.id}}</h1>
+</ng-template>

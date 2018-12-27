@@ -15,6 +15,8 @@ export class PageableListComponent<T> {
     @Input() items: T[];
     @Input() itemTemplate?: TemplateRef<TemplateListItemContext<T>>;
     @Input() trackByFn?: TrackByFunction<T>;
+    @Input() selectable = true;
+    @Input() selected: T;
 
     // paginator related inputs
     @Input() actualPage = 0;
@@ -30,6 +32,7 @@ export class PageableListComponent<T> {
 
     // list related outputs
     @Output() itemClick = new EventEmitter<T>();
+    @Output() selectionChange = new EventEmitter<T|null>();
 
     // paginator related outputs
     @Output() pageChange = new EventEmitter<number>();
@@ -37,7 +40,7 @@ export class PageableListComponent<T> {
     // other outputs
     @Output() pageSizeChange = new EventEmitter<number>();
 
-    onPageSizeChange( newPageSize: string ) {
+    onPageSizeChange( newPageSize: string ): void {
         this.pageSizeChange.emit( parseInt( newPageSize, 0 ) );
     }
 }

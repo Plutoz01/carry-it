@@ -16,7 +16,11 @@ export class ConsumerPageableListComponent<T> {
     @Input() itemTemplate?: TemplateRef<TemplateListItemContext<T>>;
     @Input() trackByFn?: TrackByFunction<T>;
     @Input() pageableItemGeneratorFn: IPageableItemGeneratorFn<T>;
+    @Input() selectable = true;
+    @Input() selected?: T;
+
     @Output() itemClick = new EventEmitter<T>();
+    @Output() selectionChange = new EventEmitter<T|null>();
 
     readonly items$: Observable<T[]>;
     readonly totalItems$: Observable<number>;

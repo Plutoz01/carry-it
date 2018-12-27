@@ -1,0 +1,16 @@
+<div class="ci-master-detail row">
+	<div class="col-lg-3 col-4">
+		<ci-consumer-pageable-list
+				[itemTemplate]="listItemTemplate"
+				[trackByFn]="listTrackByFn"
+				[pageableItemGeneratorFn]="pageableItemGeneratorFn"
+				[selected]="selected"
+				(selectionChange)="selectionChange.emit( $event )"
+		></ci-consumer-pageable-list>
+	</div>
+	<div class="col-lg-9 col-8">
+		<ng-container *ngIf="detailsItem">
+			<ng-container *ngTemplateOutlet="detailsTemplate; context: { $implicit: detailsItem}"></ng-container>
+		</ng-container>
+	</div>
+</div>

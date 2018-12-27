@@ -2,8 +2,11 @@
 	<ci-template-list [items]="items"
 					  [itemTemplate]="itemTemplate"
 					  [trackByFn]="trackByFn"
-					  (itemClick)="itemClick.emit( $event )">
-	</ci-template-list>
+					  [selectable]="selectable"
+					  [selected]="selected"
+					  (itemClick)="itemClick.emit( $event )"
+					  (selectionChange)="selectionChange.emit( $event )"
+	></ci-template-list>
 
 	<div class="d-flex justify-content-between m-2">
 		<span *ngIf="itemsCount !== undefined">

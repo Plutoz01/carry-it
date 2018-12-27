@@ -25,4 +25,7 @@ public class DepotQueryResolver implements GraphQLQueryResolver {
         return PagedResponse.from(pagedResult);
     }
 
+    Optional<Depot> getDepotById(long id) {
+        return depotService.findById(id);
+    }
 }

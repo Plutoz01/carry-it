@@ -28,5 +28,4 @@ public class VehicleQueryResolver implements GraphQLQueryResolver {
     Optional<Vehicle> getVehicleById(long id) {
         return vehicleService.findById(id);
     }
-
 }

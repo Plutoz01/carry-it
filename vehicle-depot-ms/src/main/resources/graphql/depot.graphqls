@@ -1,5 +1,6 @@
 extend type Query {
     getAllDepot(page: Page): PagedDepots!
+    getDepotById(id: ID!): Depot
 }
 
 extend type Mutation {

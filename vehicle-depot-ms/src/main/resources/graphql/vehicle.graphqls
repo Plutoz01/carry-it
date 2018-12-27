@@ -1,6 +1,6 @@
 extend type Query {
     getAllVehicle(page: Page): PagedVehicles!
-    getVehicleById(id: ID): Vehicle
+    getVehicleById(id: ID!): Vehicle
 }
 
 type Vehicle {

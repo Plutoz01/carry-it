@@ -1,7 +1,6 @@
 <ci-master-detail
 	[listItemTemplate]="depotItemTpl"
 	[listTrackByFn]="depotTrackByFn"
-	[pageableItemGeneratorFn]="depotListGeneratorFn"
 	[selected]="depotDetailsItem$ | async"
 	[detailsItem]="depotDetailsItem$ | async"
 	[detailsTemplate]="depotDetailsTpl"
@@ -16,3 +15,9 @@
 <ng-template #depotDetailsTpl let-depot>
 	<ci-depot-edit-form [depot]="depot" (save)="onSave($event)"></ci-depot-edit-form>
 </ng-template>
+
+<ci-overlay-container *ngIf="isLoading$ | async">
+	<div class="loading-dialog">
+		<fa-icon [icon]="spinnerIcon" [spin]="true" size="10x"></fa-icon>
+	</div>
+</ci-overlay-container>

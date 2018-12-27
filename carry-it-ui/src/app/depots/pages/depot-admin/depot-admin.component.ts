@@ -44,4 +44,13 @@ export class DepotAdminComponent {
         }
         this.router.navigate( [ `./` ], navExtras );
     }
+
+    onSave( depot: Depot ) {
+        this.depotService.update$( depot ).subscribe(
+            r => {
+                // TODO: refresh list content
+                console.log( 'depot updated: ', r );
+            }
+        );
+    }
 }

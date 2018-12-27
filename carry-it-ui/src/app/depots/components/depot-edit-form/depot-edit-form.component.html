@@ -1,0 +1,13 @@
+<form [formGroup]="depotForm" class="p-3">
+	<div>
+		<button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+		<button type="button" class="btn btn-secondary ml-2" (click)="onReset()">Reset</button>
+	</div>
+
+	<input type="hidden" formControlName="id">
+
+	<div class="form-group">
+		<label for="depotName">Name</label>
+		<input id="depotName" formControlName="name" type="text" class="form-control" placeholder="Enter depot name">
+	</div>
+</form>

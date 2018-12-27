@@ -14,5 +14,5 @@
 </ng-template>
 
 <ng-template #depotDetailsTpl let-depot>
-	<h1>details present: {{depot?.id}}</h1>
+	<ci-depot-edit-form [depot]="depot" (save)="onSave($event)"></ci-depot-edit-form>
 </ng-template>

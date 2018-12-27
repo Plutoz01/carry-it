@@ -3,24 +3,26 @@ package com.plutoz.carryit.vehicledepot.graphql.mutation;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.plutoz.carryit.vehicledepot.domain.Depot;
 import com.plutoz.carryit.vehicledepot.graphql.mutation.input.CreateDepotInput;
+import com.plutoz.carryit.vehicledepot.graphql.mutation.input.UpdateDepotInput;
 import com.plutoz.carryit.vehicledepot.service.DepotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MutationResolver implements GraphQLMutationResolver {
+public class DepotMutationResolver implements GraphQLMutationResolver {
 
     private final DepotService depotService;
 
     @Autowired
-    public MutationResolver(DepotService depotService) {
+    public DepotMutationResolver(DepotService depotService) {
         this.depotService = depotService;
     }
 
     Depot createDepot(CreateDepotInput input) {
-        final var depot = Depot.builder()
-                .name(input.getName())
-                .build();
-        return depotService.save(depot);
+        return depotService.save(input.toDepot());
+    }
+
+    Depot updateDepot(UpdateDepotInput input) {
+        return depotService.save(input.toDepot());
     }
 }

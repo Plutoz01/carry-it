@@ -5,6 +5,7 @@ extend type Query {
 
 extend type Mutation {
     createDepot(input: CreateDepotInput!): Depot!
+    updateDepot(input: UpdateDepotInput!): Depot!
 }
 
 type Depot {
@@ -20,5 +21,10 @@ type PagedDepots {
 }
 
 input CreateDepotInput {
+    name: String!
+}
+
+input UpdateDepotInput {
+    id: ID!
     name: String!
 }

@@ -15,5 +15,7 @@ public interface DepotService {
 
     Optional<Depot> findById(long id);
 
+    Page<Depot> findByName(String queryText, Pageable pageable);
+
     Depot save(Depot depot);
 }

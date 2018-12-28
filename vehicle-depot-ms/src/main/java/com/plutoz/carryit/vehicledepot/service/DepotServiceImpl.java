@@ -38,6 +38,11 @@ public class DepotServiceImpl implements DepotService {
     }
 
     @Override
+    public Page<Depot> findByName(String name, Pageable pageable) {
+        return repository.findByNameContainingIgnoreCase(name, pageable);
+    }
+
+    @Override
     public Depot save(Depot depot) {
         if(depot.getId() != null) {
             if(findById(depot.getId()).isEmpty()) {

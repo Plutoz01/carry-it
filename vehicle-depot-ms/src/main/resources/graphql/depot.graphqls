@@ -1,5 +1,5 @@
 extend type Query {
-    getAllDepot(page: Page): PagedDepots!
+    getAllDepot(page: Page, queryText: String): PagedDepots!
     getDepotById(id: ID!): Depot
 }
 

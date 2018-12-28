@@ -2,7 +2,7 @@ package com.plutoz.carryit.vehicledepot.graphql.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.plutoz.carryit.vehicledepot.domain.Vehicle;
-import com.plutoz.carryit.vehicledepot.graphql.query.pagination.Page;
+import com.plutoz.carryit.vehicledepot.graphql.query.pagination.PageRequest;
 import com.plutoz.carryit.vehicledepot.graphql.query.pagination.PagedResponse;
 import com.plutoz.carryit.vehicledepot.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class VehicleQueryResolver implements GraphQLQueryResolver {
         this.vehicleService = vehicleService;
     }
 
-    PagedResponse<Vehicle> getAllVehicle(Optional<Page> page) {
-        var pagedResult = vehicleService.findAll(page.orElse(Page.defaultPage()).asPageable());
+    PagedResponse<Vehicle> getAllVehicle(Optional<PageRequest> page) {
+        var pagedResult = vehicleService.findAll(page.orElse(PageRequest.defaultPage()).asPageable());
         return PagedResponse.from(pagedResult);
     }
 

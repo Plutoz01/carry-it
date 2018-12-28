@@ -2,10 +2,11 @@ package com.plutoz.carryit.vehicledepot.graphql.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.plutoz.carryit.vehicledepot.domain.Depot;
-import com.plutoz.carryit.vehicledepot.graphql.query.pagination.Page;
+import com.plutoz.carryit.vehicledepot.graphql.query.pagination.PageRequest;
 import com.plutoz.carryit.vehicledepot.graphql.query.pagination.PagedResponse;
 import com.plutoz.carryit.vehicledepot.service.DepotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -20,8 +21,15 @@ public class DepotQueryResolver implements GraphQLQueryResolver {
         this.depotService = depotService;
     }
 
-    PagedResponse<Depot> getAllDepot(Optional<Page> page) {
-        var pagedResult = depotService.findAll(page.orElse(Page.defaultPage()).asPageable());
+    PagedResponse<Depot> getAllDepot(Optional<PageRequest> page, Optional<String> queryText) {
+        var pageable = page.orElse(PageRequest.defaultPage()).asPageable();
+        Page<Depot> pagedResult;
+
+        if(queryText.isPresent() &&queryText.get().trim().length() > 0) {
+            pagedResult = depotService.findByName(queryText.get(), pageable);
+        } else {
+            pagedResult = depotService.findAll(pageable);
+        }
         return PagedResponse.from(pagedResult);
     }
 

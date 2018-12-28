@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable, zip } from 'rxjs';
 import { finalize, first, map, switchMap } from 'rxjs/operators';
 import { DEFAULT_PAGE_SIZE, PagedResponse } from '../graphql-api/models/pagination.interface';
-import { IPageableDataProvider } from './IPageableDataProvider.interface';
+import { IPageableDataProvider } from './pageable-data-provider.interface';
 
 export abstract class AbstractPageableDataProvider<T> implements IPageableDataProvider<T> {
     private readonly itemsSource = new BehaviorSubject<T[]>( [] );
@@ -53,14 +53,14 @@ export abstract class AbstractPageableDataProvider<T> implements IPageableDataPr
         );
     }
 
-    goToPage$( targetPage: number ): Observable<T[]> {
+    goToPage$( targetPage: number, forceReload = false ): Observable<T[]> {
         return zip(
             this.actualPage$,
             this.totalPages$
         ).pipe(
             first(),
             switchMap( ( [ actualPage, totalPages ] ) => {
-                if ( actualPage === targetPage ) {
+                if ( !forceReload && actualPage === targetPage ) {
                     return this.items$.pipe(
                         first()
                     );

@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, Inject, TrackByFunction } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnDestroy, TrackByFunction } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { finalize, map, pluck, switchMap } from 'rxjs/operators';
-import { IPageableDataProvider } from '../../../data-handling/IPageableDataProvider.interface';
-import { PAGEABLE_DATA_PROVIDER } from '../../../data-handling/pageable-data-provider.token';
+import { PAGEABLE_DATA_PROVIDER } from '../../../data-handling/provider.tokens';
 import { Depot } from '../../../domain';
 import { DepotService } from '../../services/depot.service';
 
@@ -19,58 +18,74 @@ import { DepotService } from '../../services/depot.service';
         }
     ]
 } )
-export class DepotAdminComponent {
+export class DepotAdminComponent implements OnDestroy {
 
     readonly spinnerIcon = faSync;
     readonly depotDetailsItem$: Observable<Depot | null>;
     private readonly isLoadingSource = new BehaviorSubject( false );
+    private readonly searchSubscription: Subscription;
 
     constructor( private readonly depotService: DepotService,
                  private readonly route: ActivatedRoute,
-                 private readonly router: Router,
-                 @Inject( PAGEABLE_DATA_PROVIDER ) private readonly pageableDataProvider: IPageableDataProvider<Depot> ) {
-        this.pageableDataProvider.reload$().subscribe();
+                 private readonly router: Router
+    ) {
+        this.searchSubscription = this.queryText$.pipe(
+            switchMap( ( queryText: string ) => this.depotService.setQueryText$( queryText ) )
+        ).subscribe();
 
         this.depotDetailsItem$ = route.data.pipe(
             pluck( 'depot' )
         );
     }
 
+    get queryText$(): Observable<string> {
+        return this.route.queryParams.pipe(
+            map( params => params[ 'q' ] || '' )
+        );
+    }
+
     get isLoading$(): Observable<boolean> {
         return combineLatest(
             this.isLoadingSource.asObservable(),
-            this.pageableDataProvider.isLoading$
+            this.depotService.isLoading$
         ).pipe(
             map( ( [ isComponentLoading, isServiceLoading ] ) => isComponentLoading || isServiceLoading )
         );
+    }
+
+    ngOnDestroy(): void {
+        if ( this.searchSubscription && !this.searchSubscription.closed ) {
+            this.searchSubscription.unsubscribe();
+        }
     }
 
     public readonly depotTrackByFn: TrackByFunction<Depot> = ( idx, depot: Depot ) => depot ? depot.id : null;
 
     onSelectionChange( newSelection: Depot | null ): void {
         const depotId = newSelection ? newSelection.id : '';
-        let navExtras: NavigationExtras = {
-            relativeTo: this.route
-        };
-        if ( depotId ) {
-            navExtras = {
-                ...navExtras,
-                queryParams: {
-                    depotId
-                }
-            };
-        }
-        this.isLoadingSource.next( true );
-        this.router.navigate( [ `./` ], navExtras ).finally(
-            () => this.isLoadingSource.next( false )
-        );
+        this.updateQueryParams( { depotId: depotId || null } );
     }
 
     onSave( depot: Depot ) {
         this.isLoadingSource.next( true );
         this.depotService.update$( depot ).pipe(
-            switchMap( () => this.pageableDataProvider.reload$() ),
+            switchMap( () => this.depotService.reload$() ),
             finalize( () => this.isLoadingSource.next( false ) )
         ).subscribe();
+    }
+
+    onFilter( queryText: string ) {
+        this.updateQueryParams( { q: queryText || null, depotId: null } );
+    }
+
+    private async updateQueryParams( paramsObj: Params ): Promise<boolean> {
+        this.isLoadingSource.next( true );
+        const navExtras: NavigationExtras = {
+            queryParams: paramsObj,
+            queryParamsHandling: 'merge'
+        };
+        return this.router.navigate( [], navExtras ).finally(
+            () => this.isLoadingSource.next( false )
+        );
     }
 }

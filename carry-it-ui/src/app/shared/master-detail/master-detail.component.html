@@ -1,11 +1,22 @@
 <div class="ci-master-detail row">
 	<div class="col-lg-3 col-4">
-		<ci-consumer-pageable-list
-				[itemTemplate]="listItemTemplate"
-				[trackByFn]="listTrackByFn"
-				[selected]="selected"
-				(selectionChange)="selectionChange.emit( $event )"
-		></ci-consumer-pageable-list>
+		<div>
+			<div class="input-group input-group-sm mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<fa-icon [icon]="searchIcon"></fa-icon>
+					</span>
+				</div>
+				<input #searchInput type="text" class="form-control" placeholder="Search" aria-label="Search"
+					   (input)="onSearch(searchInput.value)">
+			</div>
+			<ci-consumer-pageable-list
+					[itemTemplate]="listItemTemplate"
+					[trackByFn]="listTrackByFn"
+					[selected]="selected"
+					(selectionChange)="selectionChange.emit( $event )"
+			></ci-consumer-pageable-list>
+		</div>
 	</div>
 	<div class="col-lg-9 col-8">
 		<ng-container *ngIf="detailsItem">

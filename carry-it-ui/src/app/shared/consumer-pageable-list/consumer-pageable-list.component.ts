@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, Output, TemplateRef, TrackByFunction } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPageableDataProvider } from '../../data-handling/IPageableDataProvider.interface';
-import { PAGEABLE_DATA_PROVIDER } from '../../data-handling/pageable-data-provider.token';
+import { IPageableDataProvider } from '../../data-handling/pageable-data-provider.interface';
+import { PAGEABLE_DATA_PROVIDER } from '../../data-handling/provider.tokens';
 import { TemplateListItemContext } from '../template-list/template-list-item-context.interface';
 
 

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { IDataProvider } from './IDataProvider.interface';
+import { IDataProvider } from './data-provider.interface';
 
 export interface IPageableDataProvider<T> extends IDataProvider<T> {
     readonly totalElements$: Observable<number>;
@@ -9,6 +9,6 @@ export interface IPageableDataProvider<T> extends IDataProvider<T> {
 
     nextPage$(): Observable<T[]>;
     previousPage$(): Observable<T[]>;
-    goToPage$( targetPage: number ): Observable<T[]>;
+    goToPage$( targetPage: number, forceReload?: boolean ): Observable<T[]>;
     setPageSize$( targetPageSize: number ): Observable<T[]>;
 }

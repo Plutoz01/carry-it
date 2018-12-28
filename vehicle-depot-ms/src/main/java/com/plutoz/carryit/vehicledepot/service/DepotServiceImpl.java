@@ -45,7 +45,7 @@ public class DepotServiceImpl implements DepotService {
     @Override
     public Depot save(Depot depot) {
         if(depot.getId() != null) {
-            if(findById(depot.getId()).isEmpty()) {
+            if(!repository.existsById(depot.getId())) {
                 throw new IllegalArgumentException("Non-existing depot to update");
             }
         }

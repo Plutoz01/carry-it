@@ -6,3 +6,10 @@ export interface Depot {
     vehicles?: Vehicle[];
     vehicleCount?: number;
 }
+
+export const emptyDepot = (): Depot => {
+    return {
+        id: null,
+        name: ''
+    };
+};

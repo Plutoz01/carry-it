@@ -11,7 +11,7 @@ import {
     TrackByFunction,
     ViewChild
 } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { TemplateListItemContext } from '../template-list/template-list-item-context.interface';
@@ -33,8 +33,10 @@ export class MasterDetailComponent<LI, D> implements OnInit, OnDestroy {
 
     @Output() selectionChange = new EventEmitter<LI | null>();
     @Output() filter = new EventEmitter<string>();
+    @Output() new = new EventEmitter();
 
     readonly searchIcon = faSearch;
+    readonly addIcon = faPlus;
     @ViewChild( 'searchInput' ) searchInput: ElementRef;
     private searchInputSubscription: Subscription;
     private readonly searchInputSource = new Subject<string>();

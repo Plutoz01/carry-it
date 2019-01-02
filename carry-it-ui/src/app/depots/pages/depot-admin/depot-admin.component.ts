@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, TrackByFunction } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
-import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { finalize, map, pluck, switchMap } from 'rxjs/operators';
 import { PAGEABLE_DATA_PROVIDER } from '../../../data-handling/provider.tokens';
@@ -20,7 +19,6 @@ import { DepotService } from '../../services/depot.service';
 } )
 export class DepotAdminComponent implements OnDestroy {
 
-    readonly spinnerIcon = faSync;
     readonly depotDetailsItem$: Observable<Depot | null>;
     private readonly isLoadingSource = new BehaviorSubject( false );
     private readonly searchSubscription: Subscription;
@@ -61,9 +59,9 @@ export class DepotAdminComponent implements OnDestroy {
 
     public readonly depotTrackByFn: TrackByFunction<Depot> = ( idx, depot: Depot ) => depot ? depot.id : null;
 
-    onSelectionChange( newSelection: Depot | null ): void {
+    async onSelectionChange( newSelection: Depot | null ): Promise<void> {
         const depotId = newSelection ? newSelection.id : '';
-        this.updateQueryParams( { depotId: depotId || null } );
+        await this.updateQueryParams( { depotId: depotId || null } );
     }
 
     onSave( depot: Depot ) {
@@ -74,8 +72,12 @@ export class DepotAdminComponent implements OnDestroy {
         ).subscribe();
     }
 
-    onFilter( queryText: string ) {
-        this.updateQueryParams( { q: queryText || null, depotId: null } );
+    async onFilter( queryText: string ) {
+        await this.updateQueryParams( { q: queryText || null, depotId: null } );
+    }
+
+    async onNew(): Promise<void> {
+        await this.router.navigate( ['./new'], {relativeTo: this.route} );
     }
 
     private async updateQueryParams( paramsObj: Params ): Promise<boolean> {

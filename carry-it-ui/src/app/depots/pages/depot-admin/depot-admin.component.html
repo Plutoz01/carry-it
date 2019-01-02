@@ -8,6 +8,7 @@
 			[queryText]="queryText$ | async"
 			(selectionChange)="onSelectionChange($event)"
 			(filter)="onFilter($event)"
+			(new)="onNew()"
 	></ci-master-detail>
 </div>
 
@@ -20,8 +21,4 @@
 	<ci-depot-edit-form [depot]="depot" (save)="onSave($event)"></ci-depot-edit-form>
 </ng-template>
 
-<ci-overlay-container *ngIf="isLoading$ | async">
-	<div class="loading-dialog">
-		<fa-icon [icon]="spinnerIcon" [spin]="true" size="10x"></fa-icon>
-	</div>
-</ci-overlay-container>
+<ci-loading-overlay *ngIf="isLoading$ | async"></ci-loading-overlay>

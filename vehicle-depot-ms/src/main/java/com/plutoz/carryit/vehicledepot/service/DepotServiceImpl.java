@@ -23,11 +23,6 @@ public class DepotServiceImpl implements DepotService {
     }
 
     @Override
-    public List<Depot> findAll() {
-        return repository.findAll();
-    }
-
-    @Override
     public Page<Depot> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }

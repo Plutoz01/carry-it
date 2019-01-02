@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Deprecated
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/depot")
@@ -24,10 +25,6 @@ public class DepotController {
         this.vehicleService = vehicleService;
     }
 
-    @GetMapping
-    public List<Depot> getAllDepots() {
-        return depotService.findAll();
-    }
 
     @GetMapping("/{depotId}")
     public Depot getById(@PathVariable long depotId) {

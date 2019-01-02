@@ -22,10 +22,10 @@ public class DepotQueryResolver implements GraphQLQueryResolver {
     }
 
     PagedResponse<Depot> getAllDepot(Optional<PageRequest> page, Optional<String> queryText) {
-        var pageable = page.orElse(PageRequest.defaultPage()).asPageable();
+        var pageable = page.orElse(PageRequest.defaultPage()).asPageableWithSort(DepotService.DEFAULT_SORT);
         Page<Depot> pagedResult;
 
-        if(queryText.isPresent() &&queryText.get().trim().length() > 0) {
+        if (queryText.isPresent() && queryText.get().trim().length() > 0) {
             pagedResult = depotService.findByName(queryText.get(), pageable);
         } else {
             pagedResult = depotService.findAll(pageable);

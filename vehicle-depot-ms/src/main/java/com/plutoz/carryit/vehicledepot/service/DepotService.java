@@ -18,4 +18,6 @@ public interface DepotService {
     Page<Depot> findByName(String queryText, Pageable pageable);
 
     Depot save(Depot depot);
+
+    long delete(long depotId);
 }

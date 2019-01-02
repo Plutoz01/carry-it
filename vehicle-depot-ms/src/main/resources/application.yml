@@ -2,7 +2,6 @@ spring:
   datasource:
     url: jdbc:postgresql://127.0.0.1/carryit
     username: postgres
-    password: Murlocks69
   jpa:
     properties:
       hibernate:

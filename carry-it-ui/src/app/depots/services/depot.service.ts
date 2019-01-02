@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { AbstractFilterableDataProvider } from '../../data-handling/abstract-filterable-data-provider.class';
 import { Depot } from '../../domain';
 import { DEFAULT_PAGE_SIZE, PagedResponse } from '../../graphql-api/models/pagination.interface';
 import { CreateDepotQuery } from '../../graphql-api/queries/depots/create.query';
+import { DeleteDepotQuery } from '../../graphql-api/queries/depots/delete.query';
 import { GetAllDepotQuery } from '../../graphql-api/queries/depots/get-all.query';
 import { GetDepotByIdQuery } from '../../graphql-api/queries/depots/get-by-id.query';
 import { UpdateDepotQuery } from '../../graphql-api/queries/depots/update.query';
@@ -18,7 +19,8 @@ export class DepotService extends AbstractFilterableDataProvider<Depot> {
         private readonly getAllDepotQuery: GetAllDepotQuery,
         private readonly getDepotByIdQuery: GetDepotByIdQuery,
         private readonly createDepotQuery: CreateDepotQuery,
-        private readonly updateDepotQuery: UpdateDepotQuery
+        private readonly updateDepotQuery: UpdateDepotQuery,
+        private readonly deleteDepotQuery: DeleteDepotQuery
     ) {
         super();
     }
@@ -39,7 +41,14 @@ export class DepotService extends AbstractFilterableDataProvider<Depot> {
         delete input.id;
         return this.createDepotQuery.mutate( { input } ).pipe(
             map( response => response.data.createDepot ),
-            tap( () => this.apollo.getClient().resetStore() )
+            switchMap( response => from( this.apollo.getClient().resetStore().then( () => response ) ) ),
+        );
+    }
+
+    delete$( id: number ): Observable<number> {
+        return this.deleteDepotQuery.mutate( { id } ).pipe(
+            map( response => response.data.deleteDepot ),
+            switchMap( responseId => from( this.apollo.getClient().resetStore().then( () => responseId ) ) ),
         );
     }
 

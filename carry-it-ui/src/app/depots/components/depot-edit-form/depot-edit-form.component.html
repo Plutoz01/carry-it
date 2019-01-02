@@ -1,13 +1,22 @@
 <form [formGroup]="depotForm" class="p-3">
-	<div>
-		<button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
-		<button type="button" class="btn btn-secondary ml-2" (click)="onReset()">Reset</button>
-	</div>
+	<ci-crud-form-actions
+			[deletable]="isDeletable"
+			(save)="onSave()"
+			(reset)="onReset()"
+			(delete)="delete.emit(depot)">
+	</ci-crud-form-actions>
 
 	<input type="hidden" formControlName="id">
 
 	<div class="form-group">
 		<label for="depotName">Name</label>
 		<input id="depotName" formControlName="name" type="text" class="form-control" placeholder="Enter depot name">
+	</div>
+
+	<div *ngIf="hasVehicles">
+		<h6>Assigned vehicles:</h6>
+		<ul>
+			<li *ngFor="let v of depot.vehicles">{{v.licencePlate}}</li>
+		</ul>
 	</div>
 </form>

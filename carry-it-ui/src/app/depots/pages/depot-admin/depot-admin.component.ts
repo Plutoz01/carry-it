@@ -64,20 +64,29 @@ export class DepotAdminComponent implements OnDestroy {
         await this.updateQueryParams( { depotId: depotId || null } );
     }
 
-    onSave( depot: Depot ) {
+    async onSave( depot: Depot ): Promise<void> {
         this.isLoadingSource.next( true );
-        this.depotService.update$( depot ).pipe(
+        await this.depotService.update$( depot ).pipe(
             switchMap( () => this.depotService.reload$() ),
             finalize( () => this.isLoadingSource.next( false ) )
-        ).subscribe();
+        ).toPromise();
+        await this.updateQueryParams( {depotId: null} );
     }
 
-    async onFilter( queryText: string ) {
+    async onFilter( queryText: string ): Promise<void> {
         await this.updateQueryParams( { q: queryText || null, depotId: null } );
     }
 
     async onNew(): Promise<void> {
         await this.router.navigate( ['./new'], {relativeTo: this.route} );
+    }
+
+    async onDelete(depot: Depot): Promise<void> {
+        this.isLoadingSource.next( true );
+        await this.depotService.delete$(depot.id).pipe(
+            switchMap( () => this.depotService.reload$() ),
+            finalize( () => this.isLoadingSource.next( false ) )
+        ).toPromise();
     }
 
     private async updateQueryParams( paramsObj: Params ): Promise<boolean> {

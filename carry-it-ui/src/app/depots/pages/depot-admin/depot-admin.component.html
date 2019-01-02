@@ -18,7 +18,7 @@
 </ng-template>
 
 <ng-template #depotDetailsTpl let-depot>
-	<ci-depot-edit-form [depot]="depot" (save)="onSave($event)"></ci-depot-edit-form>
+	<ci-depot-edit-form [depot]="depot" (save)="onSave($event)" (delete)="onDelete($event)"></ci-depot-edit-form>
 </ng-template>
 
 <ci-loading-overlay *ngIf="isLoading$ | async"></ci-loading-overlay>

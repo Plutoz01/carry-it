@@ -1,4 +1,5 @@
 import { CreateDepotQuery } from './depots/create.query';
+import { DeleteDepotQuery } from './depots/delete.query';
 import { GetAllDepotQuery } from './depots/get-all.query';
 import { GetDepotByIdQuery } from './depots/get-by-id.query';
 import { UpdateDepotQuery } from './depots/update.query';
@@ -9,6 +10,7 @@ export const queries = [
     GetDepotByIdQuery,
     CreateDepotQuery,
     UpdateDepotQuery,
+    DeleteDepotQuery,
 
     GetAllVehicleQuery
 ];

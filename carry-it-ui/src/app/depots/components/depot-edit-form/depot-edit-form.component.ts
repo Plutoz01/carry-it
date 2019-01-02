@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Depot } from '../../../domain';
 
 @Component( {
     selector: 'ci-depot-edit-form',
     templateUrl: './depot-edit-form.component.html',
-    styleUrls: [ './depot-edit-form.component.scss' ]
+    styleUrls: [ './depot-edit-form.component.scss' ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class DepotEditFormComponent implements OnChanges {
     @Input() depot: Depot;
-
     @Output() save = new EventEmitter<Depot>();
+    @Output() delete = new EventEmitter<Depot>();
 
     readonly depotForm: FormGroup;
 
@@ -19,6 +20,17 @@ export class DepotEditFormComponent implements OnChanges {
             id: formBuilder.control( '' ),
             name: formBuilder.control( '', Validators.required )
         } );
+    }
+
+    get isDeletable(): boolean {
+        return !!this.depot
+            && !!this.depot.id
+            && !this.hasVehicles;
+    }
+
+    get hasVehicles(): boolean {
+        return Array.isArray( this.depot.vehicles )
+            && this.depot.vehicles.length > 0;
     }
 
     ngOnChanges( changes: SimpleChanges ): void {
@@ -35,6 +47,6 @@ export class DepotEditFormComponent implements OnChanges {
     }
 
     onReset(): void {
-        this.depotForm.reset(this.depot);
+        this.depotForm.reset( this.depot );
     }
 }

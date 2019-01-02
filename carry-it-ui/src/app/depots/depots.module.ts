@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GraphqlApiModule } from '../graphql-api/graphql-api.module';
+import { CrudFormActionsModule } from '../shared/crud-form-actions/crud-form-actions.module';
 import { LoadingOverlayModule } from '../shared/loading-overlay/loading-overlay.module';
 import { MasterDetailModule } from '../shared/master-detail/master-detail.module';
 import { DepotEditFormComponent } from './components/depot-edit-form/depot-edit-form.component';
@@ -19,6 +20,7 @@ import { DepotService } from './services/depot.service';
         ReactiveFormsModule,
         FontAwesomeModule,
 
+        CrudFormActionsModule,
         GraphqlApiModule,
         DepotsRoutingModule,
         MasterDetailModule,

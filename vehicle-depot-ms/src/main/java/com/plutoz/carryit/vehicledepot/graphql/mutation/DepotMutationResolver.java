@@ -3,7 +3,6 @@ package com.plutoz.carryit.vehicledepot.graphql.mutation;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.plutoz.carryit.vehicledepot.domain.Depot;
 import com.plutoz.carryit.vehicledepot.graphql.mutation.input.CreateDepotInput;
-import com.plutoz.carryit.vehicledepot.graphql.mutation.input.DeleteDepotInput;
 import com.plutoz.carryit.vehicledepot.graphql.mutation.input.UpdateDepotInput;
 import com.plutoz.carryit.vehicledepot.service.DepotService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class DepotMutationResolver implements GraphQLMutationResolver {
         return depotService.save(input.toDepot());
     }
 
-    long deleteDepot(DeleteDepotInput input) {
-            return depotService.delete(input.getId());
+    long deleteDepot(Long id) {
+            return depotService.delete(id);
     }
 }

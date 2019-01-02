@@ -1,6 +1,7 @@
 <form [formGroup]="depotForm" class="p-3">
 	<ci-crud-form-actions
 			[deletable]="isDeletable"
+			[savable]="isSavable"
 			(save)="onSave()"
 			(reset)="onReset()"
 			(delete)="delete.emit(depot)">

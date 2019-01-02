@@ -8,6 +8,7 @@ import { faSave, faTrash, faUndo } from '@fortawesome/free-solid-svg-icons';
     changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class CrudFormActionsComponent {
+    @Input() savable = true;
     @Input() deletable = true;
     @Output() save = new EventEmitter();
     @Output() delete = new EventEmitter();
@@ -16,4 +17,16 @@ export class CrudFormActionsComponent {
     readonly deleteIcon = faTrash;
     readonly resetIcon = faUndo;
     readonly saveIcon = faSave;
+
+    onSave(): void {
+        if ( this.savable ) {
+            this.save.emit();
+        }
+    }
+
+    onDelete(): void {
+        if ( this.deletable ) {
+            this.delete.emit();
+        }
+    }
 }

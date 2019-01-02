@@ -22,6 +22,10 @@ export class DepotEditFormComponent implements OnChanges {
         } );
     }
 
+    get isSavable(): boolean {
+        return this.depotForm.valid;
+    }
+
     get isDeletable(): boolean {
         return !!this.depot
             && !!this.depot.id

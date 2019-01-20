@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, TrackByFunction } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { finalize, map, pluck, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, finalize, map, pluck, switchMap } from 'rxjs/operators';
 import { PAGEABLE_DATA_PROVIDER } from '../../../data-handling/provider.tokens';
 import { Depot } from '../../../domain';
 import { DepotService } from '../../services/depot.service';
@@ -38,7 +38,8 @@ export class DepotAdminComponent implements OnDestroy {
 
     get queryText$(): Observable<string> {
         return this.route.queryParams.pipe(
-            map( params => params[ 'q' ] || '' )
+            map( params => params[ 'q' ] || '' ),
+            distinctUntilChanged()
         );
     }
 
@@ -70,7 +71,7 @@ export class DepotAdminComponent implements OnDestroy {
             switchMap( () => this.depotService.reload$() ),
             finalize( () => this.isLoadingSource.next( false ) )
         ).toPromise();
-        await this.updateQueryParams( {depotId: null} );
+        await this.updateQueryParams( { depotId: null } );
     }
 
     async onFilter( queryText: string ): Promise<void> {
@@ -78,12 +79,12 @@ export class DepotAdminComponent implements OnDestroy {
     }
 
     async onNew(): Promise<void> {
-        await this.router.navigate( ['./new'], {relativeTo: this.route} );
+        await this.router.navigate( [ './new' ], { relativeTo: this.route } );
     }
 
-    async onDelete(depot: Depot): Promise<void> {
+    async onDelete( depot: Depot ): Promise<void> {
         this.isLoadingSource.next( true );
-        await this.depotService.delete$(depot.id).pipe(
+        await this.depotService.delete$( depot.id ).pipe(
             switchMap( () => this.depotService.reload$() ),
             finalize( () => this.isLoadingSource.next( false ) )
         ).toPromise();

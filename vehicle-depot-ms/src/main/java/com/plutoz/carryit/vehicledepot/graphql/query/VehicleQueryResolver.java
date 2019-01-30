@@ -6,6 +6,7 @@ import com.plutoz.carryit.vehicledepot.graphql.query.pagination.PageRequest;
 import com.plutoz.carryit.vehicledepot.graphql.query.pagination.PagedResponse;
 import com.plutoz.carryit.vehicledepot.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -20,8 +21,15 @@ public class VehicleQueryResolver implements GraphQLQueryResolver {
         this.vehicleService = vehicleService;
     }
 
-    PagedResponse<Vehicle> getAllVehicle(Optional<PageRequest> page) {
-        var pagedResult = vehicleService.findAll(page.orElse(PageRequest.defaultPage()).asPageable());
+    PagedResponse<Vehicle> getAllVehicle(Optional<PageRequest> page, Optional<String> queryText) {
+        var pageable = page.orElse(PageRequest.defaultPage()).asPageableWithSort(VehicleService.DEFAULT_SORT);
+        Page<Vehicle> pagedResult;
+
+        if (queryText.isPresent() && queryText.get().trim().length() > 0) {
+            pagedResult = vehicleService.findByLicencePlate(queryText.get(), pageable);
+        } else {
+            pagedResult = vehicleService.findAll(pageable);
+        }
         return PagedResponse.from(pagedResult);
     }
 

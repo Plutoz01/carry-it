@@ -1,6 +1,7 @@
 package com.plutoz.carryit.vehicledepot.service;
 
 import com.plutoz.carryit.vehicledepot.domain.Vehicle;
+import com.plutoz.carryit.vehicledepot.exception.EntityNotFoundException;
 import com.plutoz.carryit.vehicledepot.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,11 +29,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> findAll() {
-        return repository.findAll();
-    }
-
-    @Override
     public Page<Vehicle> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
@@ -45,5 +41,30 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public int countByDepotId(long depotId) {
         return repository.countByDepotId(depotId);
+    }
+
+    @Override
+    public Page<Vehicle> findByLicencePlate(String queryText, Pageable pageable) {
+        return repository.findByLicencePlateContainingIgnoreCase(queryText, pageable);
+    }
+
+    @Override
+    public Vehicle save(Vehicle vehicle) {
+        if (vehicle.getId() != null) {
+            if (!repository.existsById(vehicle.getId())) {
+                throw new EntityNotFoundException(vehicle.getId());
+            }
+        }
+        return repository.save(vehicle);
+    }
+
+    @Override
+    public long delete(long vehicleId) {
+        if (!repository.existsById(vehicleId)) {
+            throw new EntityNotFoundException(vehicleId);
+        }
+
+        repository.deleteById(vehicleId);
+        return vehicleId;
     }
 }

@@ -8,10 +8,6 @@ export abstract class AbstractFilterableDataProvider<T> extends AbstractPageable
 
     private readonly queryTextSource = new BehaviorSubject( '' );
 
-    constructor() {
-        super();
-    }
-
     get queryText$(): Observable<string> {
         return this.queryTextSource.asObservable();
     }

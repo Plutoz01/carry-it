@@ -31,6 +31,14 @@ export class DepotService extends AbstractFilterableDataProvider<Depot> {
         );
     }
 
+    getAll$(page = 0, size = 999): Observable<Depot[]> {
+        // TODO: proper solution for pagination
+        return this.getAllDepotQuery.fetch( { page, size } ).pipe(
+            map( response => response.data.getAllDepot ),
+            map( pagedResponse => pagedResponse.items )
+        );
+    }
+
     update$( input: Depot ): Observable<Depot> {
         return this.updateDepotQuery.mutate( { input } ).pipe(
             map( response => response.data.updateDepot )
@@ -52,7 +60,7 @@ export class DepotService extends AbstractFilterableDataProvider<Depot> {
         );
     }
 
-    protected getFilteredItems$( page = 0, size = DEFAULT_PAGE_SIZE, queryText: string = '' ): Observable<PagedResponse<Depot>> {
+    protected getFilteredItems$( page = 0, size = DEFAULT_PAGE_SIZE, queryText = '' ): Observable<PagedResponse<Depot>> {
         return this.getAllDepotQuery.fetch( { page, size, queryText } ).pipe(
             map( response => response.data.getAllDepot )
         );

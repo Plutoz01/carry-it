@@ -9,11 +9,11 @@ import { DepotService } from '../../services/depot.service';
 
 @Component( {
     selector: 'ci-create-depot',
-    templateUrl: './create-depot.component.html',
-    styleUrls: [ './create-depot.component.scss' ],
+    templateUrl: './create-depot.page.html',
+    styleUrls: [ './create-depot.page.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush
 } )
-export class CreateDepotComponent {
+export class CreateDepotPage {
     readonly depot: Depot = emptyDepot();
     readonly cancelIcon = faAngleDoubleLeft;
     private readonly isLoadingSource = new BehaviorSubject(false);

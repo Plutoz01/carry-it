@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { Depot } from '../../../domain';
 
 export interface GetDepotByIdResponse {
-    getDepotById: Depot|null;
+    getDepotById: Depot | null;
 }
 
 @Injectable()

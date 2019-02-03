@@ -14,8 +14,7 @@ export class DepotQueryParamResolver implements Resolve<Depot> {
         const depotId = route.queryParamMap.get( 'depotId' );
         if ( depotId ) {
             return this.depotService.getById$( depotId );
-        } else {
-            return of( null );
         }
+        return of( null );
     }
 }

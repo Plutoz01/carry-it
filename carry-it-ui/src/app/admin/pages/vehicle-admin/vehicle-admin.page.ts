@@ -3,36 +3,36 @@ import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/route
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, finalize, map, pluck, switchMap } from 'rxjs/operators';
 import { PAGEABLE_DATA_PROVIDER } from '../../../data-handling/provider.tokens';
-import { Depot } from '../../../domain';
-import { DepotService } from '../../services/depot.service';
+import { Vehicle } from '../../../domain';
+import { VehicleService } from '../../services/vehicle.service';
 
 @Component( {
-    templateUrl: './depot-admin.component.html',
-    styleUrls: [ './depot-admin.component.scss' ],
+    templateUrl: './vehicle-admin.page.html',
+    styleUrls: [ './vehicle-admin.page.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: PAGEABLE_DATA_PROVIDER,
-            useExisting: DepotService
+            useExisting: VehicleService
         }
     ]
 } )
-export class DepotAdminComponent implements OnDestroy {
+export class VehicleAdminPage implements OnDestroy {
 
-    readonly depotDetailsItem$: Observable<Depot | null>;
+    readonly detailsItem$: Observable<Vehicle | null>;
     private readonly isLoadingSource = new BehaviorSubject( false );
     private readonly searchSubscription: Subscription;
 
-    constructor( private readonly depotService: DepotService,
+    constructor( private readonly vehicleService: VehicleService,
                  private readonly route: ActivatedRoute,
                  private readonly router: Router
     ) {
         this.searchSubscription = this.queryText$.pipe(
-            switchMap( ( queryText: string ) => this.depotService.setQueryText$( queryText ) )
+            switchMap( ( queryText: string ) => this.vehicleService.setQueryText$( queryText ) )
         ).subscribe();
 
-        this.depotDetailsItem$ = route.data.pipe(
-            pluck( 'depot' )
+        this.detailsItem$ = route.data.pipe(
+            pluck( 'vehicle' )
         );
     }
 
@@ -46,7 +46,7 @@ export class DepotAdminComponent implements OnDestroy {
     get isLoading$(): Observable<boolean> {
         return combineLatest(
             this.isLoadingSource.asObservable(),
-            this.depotService.isLoading$
+            this.vehicleService.isLoading$
         ).pipe(
             map( ( [ isComponentLoading, isServiceLoading ] ) => isComponentLoading || isServiceLoading )
         );
@@ -58,34 +58,34 @@ export class DepotAdminComponent implements OnDestroy {
         }
     }
 
-    public readonly depotTrackByFn: TrackByFunction<Depot> = ( idx, depot: Depot ) => depot ? depot.id : null;
+    public readonly listItemTrackByFn: TrackByFunction<Vehicle> = ( idx, item: Vehicle ) => item ? item.id : null;
 
-    async onSelectionChange( newSelection: Depot | null ): Promise<void> {
-        const depotId = newSelection ? newSelection.id : '';
-        await this.updateQueryParams( { depotId: depotId || null } );
+    async onSelectionChange( newSelection: Vehicle | null ): Promise<void> {
+        const vehicleId = newSelection ? newSelection.id : '';
+        await this.updateQueryParams( { vehicleId: vehicleId || null } );
     }
 
-    async onSave( depot: Depot ): Promise<void> {
+    async onSave( vehicle: Vehicle ): Promise<void> {
         this.isLoadingSource.next( true );
-        await this.depotService.update$( depot ).pipe(
-            switchMap( () => this.depotService.reload$() ),
+        await this.vehicleService.update$( vehicle ).pipe(
+            switchMap( () => this.vehicleService.reload$() ),
             finalize( () => this.isLoadingSource.next( false ) )
         ).toPromise();
         await this.updateQueryParams( { depotId: null } );
     }
 
     async onFilter( queryText: string ): Promise<void> {
-        await this.updateQueryParams( { q: queryText || null, depotId: null } );
+        await this.updateQueryParams( { q: queryText || null, vehicleId: null } );
     }
 
     async onNew(): Promise<void> {
         await this.router.navigate( [ './new' ], { relativeTo: this.route } );
     }
 
-    async onDelete( depot: Depot ): Promise<void> {
+    async onDelete( vehicle: Vehicle ): Promise<void> {
         this.isLoadingSource.next( true );
-        await this.depotService.delete$( depot.id ).pipe(
-            switchMap( () => this.depotService.reload$() ),
+        await this.vehicleService.delete$( vehicle.id ).pipe(
+            switchMap( () => this.vehicleService.reload$() ),
             finalize( () => this.isLoadingSource.next( false ) )
         ).toPromise();
     }

@@ -2,18 +2,18 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TemplateListModule } from '../../../shared/template-list/template-list.module';
 import { DepotService } from '../../services/depot.service';
 import { DepotServiceMock } from '../../services/depot.service.mock';
-import { DepotAdminComponent } from './depot-admin.component';
+import { DepotAdminPage } from './depot-admin.page';
 
 describe( 'DepotListComponent', () => {
-    let component: DepotAdminComponent;
-    let fixture: ComponentFixture<DepotAdminComponent>;
+    let component: DepotAdminPage;
+    let fixture: ComponentFixture<DepotAdminPage>;
 
     beforeEach( async( () => {
         TestBed.configureTestingModule( {
             imports: [
                 TemplateListModule
             ],
-            declarations: [ DepotAdminComponent ],
+            declarations: [ DepotAdminPage ],
             providers: [
                 { provide: DepotService, useClass: DepotServiceMock }
             ]
@@ -21,7 +21,7 @@ describe( 'DepotListComponent', () => {
     } ) );
 
     beforeEach( () => {
-        fixture = TestBed.createComponent( DepotAdminComponent );
+        fixture = TestBed.createComponent( DepotAdminPage );
         component = fixture.componentInstance;
         fixture.detectChanges();
     } );

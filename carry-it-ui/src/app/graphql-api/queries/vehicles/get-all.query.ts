@@ -13,12 +13,13 @@ export class GetAllVehicleQuery extends Query<GetAllVehicleResponse> {
     document = gql`
         query GetAllVehicle($page: Int!, $size: Int!) {
             getAllVehicle(page: {page: $page, size: $size}) {
-                pageInfo { totalElements, totalPages },
+                pageInfo { totalElements, totalPages }
                 items {
-                    id,
-                    licencePlate,
+                    id
+                    licencePlate
+                    depotId
                     depot {
-                        name
+                        id, name
                     }
                 }
             }

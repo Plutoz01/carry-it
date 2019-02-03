@@ -20,7 +20,7 @@ public interface DepotService {
 
     Page<Depot> findByName(String queryText, Pageable pageable);
 
-    @CacheEvict(value = "depots", key = "#id")
+    @CacheEvict(value = "depots", condition = "#id != null", key = "#id")
     Depot save(Depot depot);
 
     @CacheEvict("depots")

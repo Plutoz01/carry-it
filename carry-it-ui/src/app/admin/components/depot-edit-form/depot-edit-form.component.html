@@ -17,7 +17,7 @@
 	<div>
 		<h6>Assigned vehicles:</h6>
 		<div *ngIf="hasVehicles" class="list-group list-group-flush">
-			<a *ngFor="let v of depot.vehicles" class="list-group-item list-group-item-action" routerLink="/vehicles" [queryParams]="{vehicleId: v.id}">
+			<a *ngFor="let v of depot.vehicles" class="list-group-item list-group-item-action" routerLink="../vehicles" [queryParams]="{id: v.id}">
 				{{v.licencePlate}}
 			</a>
 		</div>

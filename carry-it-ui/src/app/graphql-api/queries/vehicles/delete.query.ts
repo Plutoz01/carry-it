@@ -10,7 +10,7 @@ export interface DeleteVehicleResponse {
 export class DeleteVehicleQuery extends Mutation<DeleteVehicleResponse> {
     document = gql`
         mutation DeleteVehicle($id: ID!) {
-            deleteVehicle( id: $id)
+            deleteVehicle(id: $id)
         }
     `;
 }

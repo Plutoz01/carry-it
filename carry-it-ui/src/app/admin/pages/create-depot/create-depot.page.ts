@@ -5,7 +5,6 @@ import { emptyDepot } from '../../../domain/depot.interface';
 import { DepotService } from '../../services/depot.service';
 
 @Component( {
-    selector: 'ci-create-depot',
     templateUrl: './create-depot.page.html',
     styleUrls: [ './create-depot.page.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,5 +13,5 @@ import { DepotService } from '../../services/depot.service';
     ]
 } )
 export class CreateDepotPage {
-    readonly depot: Depot = emptyDepot();
+    readonly initial: Depot = emptyDepot();
 }

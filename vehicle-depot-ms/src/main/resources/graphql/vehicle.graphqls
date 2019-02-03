@@ -6,7 +6,7 @@ extend type Query {
 extend type Mutation {
     createVehicle(input: CreateVehicleInput!): Vehicle!
     updateVehicle(input: UpdateVehicleInput!): Vehicle!
-    deleteVehicle(input: ID!): ID!
+    deleteVehicle(id: ID!): ID!
 }
 
 type Vehicle {
@@ -23,10 +23,11 @@ type PagedVehicles {
 
 input CreateVehicleInput {
     licencePlate: String!
-    depotId: ID!;
+    depotId: ID!
 }
 
 input UpdateVehicleInput {
     id: ID!
+    depotId: ID!
     licencePlate: String!
 }

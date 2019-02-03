@@ -11,7 +11,7 @@ export class DepotQueryParamResolver implements Resolve<Depot> {
     }
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<Depot> {
-        const depotId = parseInt( route.queryParamMap.get( 'depotId' ), 10 );
+        const depotId = parseInt( route.queryParamMap.get( 'id' ), 10 );
         if ( !isNaN( depotId ) ) {
             return this.depotService.getById$( depotId );
         }

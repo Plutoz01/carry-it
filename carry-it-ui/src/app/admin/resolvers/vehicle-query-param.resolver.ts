@@ -10,7 +10,7 @@ export class VehicleQueryParamResolver implements Resolve<Vehicle> {
     }
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<Vehicle> {
-        const vehicleId = parseInt( route.queryParamMap.get( 'vehicleId' ), 10 );
+        const vehicleId = parseInt( route.queryParamMap.get( 'id' ), 10 );
         if ( !isNaN( vehicleId ) ) {
             return this.vehicleService.getById$( vehicleId );
         }

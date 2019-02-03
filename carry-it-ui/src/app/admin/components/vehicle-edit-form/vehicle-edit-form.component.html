@@ -10,7 +10,12 @@
 	<input type="hidden" formControlName="id">
 
 	<div class="form-group">
-		<label for="depotSelect">Depot</label>
+		<label for="depotSelect">
+			Depot
+			<small>
+				<a *ngIf="vehicle?.depot" routerLink="../depots" [queryParams]="{id: vehicle.depot.id}">Jump to</a>
+			</small>
+		</label>
 		<select id="depotSelect" formControlName="depot" [compareWith]="depotCompareFn" class="custom-select">
 			<option *ngFor="let depot of (depots$ | async)" [ngValue]="depot">{{depot.name}}</option>
 		</select>

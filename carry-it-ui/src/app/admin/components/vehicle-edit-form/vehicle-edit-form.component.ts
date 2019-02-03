@@ -17,7 +17,7 @@ export class VehicleEditFormComponent implements OnChanges {
 
     readonly vehicleForm: FormGroup;
     readonly depots$: Observable<Depot[]>;
-    readonly depotCompareFn = (depot1: Depot, depot2: Depot) => depot1.id === depot2.id;
+    readonly depotCompareFn = (depot1: Depot, depot2: Depot) => depot1 && depot2 ? depot1.id === depot2.id : false;
 
     constructor(
         private readonly formBuilder: FormBuilder,

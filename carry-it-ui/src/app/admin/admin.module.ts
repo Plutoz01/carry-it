@@ -10,6 +10,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { DepotEditFormComponent } from './components/depot-edit-form/depot-edit-form.component';
 import { VehicleEditFormComponent } from './components/vehicle-edit-form/vehicle-edit-form.component';
 import { CreateDepotPage } from './pages/create-depot/create-depot.page';
+import { CreateVehiclePage } from './pages/create-vehicle/create-vehicle.page';
 import { DepotAdminPage } from './pages/depot-admin/depot-admin.page';
 import { VehicleAdminPage } from './pages/vehicle-admin/vehicle-admin.page';
 import { DepotQueryParamResolver } from './resolvers/depot-query-param.resolver';
@@ -25,7 +26,8 @@ import { CreateEntityComponent } from './components/create-entity/create-entity.
       CreateDepotPage,
       DepotEditFormComponent,
       VehicleEditFormComponent,
-      CreateEntityComponent
+      CreateEntityComponent,
+      CreateVehiclePage
   ],
   imports: [
       CommonModule,

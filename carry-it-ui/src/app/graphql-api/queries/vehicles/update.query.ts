@@ -10,8 +10,8 @@ export interface UpdateVehicleResponse {
 @Injectable()
 export class UpdateVehicleQuery extends Mutation<UpdateVehicleResponse> {
     document = gql`
-        mutation UpdateVehicle($input: UpdateVehicleInput!) {
-            updateVehicle( input: $input) { id, licencePlate, depot { id, name } }
+        mutation updateVehicle($input: UpdateVehicleInput!) {
+            updateVehicle(input: $input) { id, licencePlate, depot { id, name } }
         }
     `;
 }

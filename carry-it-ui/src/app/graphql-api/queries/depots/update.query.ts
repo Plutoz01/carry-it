@@ -11,7 +11,7 @@ export interface UpdateDepotResponse {
 export class UpdateDepotQuery extends Mutation<UpdateDepotResponse> {
     document = gql`
         mutation UpdateDepot($input: UpdateDepotInput!) {
-            updateDepot( input: $input) { id, name }
+            updateDepot(input: $input) { id, name }
         }
     `;
 }

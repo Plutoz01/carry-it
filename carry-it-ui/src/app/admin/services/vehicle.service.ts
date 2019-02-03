@@ -33,14 +33,23 @@ export class VehicleService extends AbstractFilterableDataProvider<Vehicle> impl
     }
 
     update$( input: Vehicle ): Observable<Vehicle> {
-        return this.updateVehicleQuery.mutate( { input } ).pipe(
+        const vehicleInput: Vehicle = {
+            id: input.id,
+            depotId: this.fetchDepotId( input ),
+            licencePlate: input.licencePlate
+        };
+
+        return this.updateVehicleQuery.mutate( { input: vehicleInput } ).pipe(
             map( response => response.data.updateVehicle )
         );
     }
 
     create$( input: Vehicle ): Observable<Vehicle> {
-        delete input.id;
-        return this.createVehicleQuery.mutate( { input } ).pipe(
+        const vehicleInput: Partial<Vehicle> = {
+            licencePlate: input.licencePlate,
+            depotId: this.fetchDepotId( input )
+        };
+        return this.createVehicleQuery.mutate( { input: vehicleInput } ).pipe(
             map( response => response.data.createVehicle ),
             switchMap( response => from( this.apollo.getClient().resetStore().then( () => response ) ) ),
         );
@@ -51,6 +60,19 @@ export class VehicleService extends AbstractFilterableDataProvider<Vehicle> impl
             map( response => response.data.deleteVehicle ),
             switchMap( responseId => from( this.apollo.getClient().resetStore().then( () => responseId ) ) ),
         );
+    }
+
+    protected fetchDepotId( vehicle: Vehicle ): number | undefined {
+        if ( !vehicle ) {
+            return undefined;
+        }
+        if ( !isNaN( vehicle.depotId ) ) {
+            return vehicle.depotId;
+        }
+        if ( vehicle.depot && !isNaN( vehicle.depot.id ) ) {
+            return vehicle.depot.id;
+        }
+        return undefined;
     }
 
     protected getFilteredItems$( page = 0, size = DEFAULT_PAGE_SIZE, queryText = '' ): Observable<PagedResponse<Vehicle>> {

@@ -7,3 +7,10 @@ export interface Vehicle extends IIdentifiable<number> {
     depotId?: number;
     depot?: Depot;
 }
+
+export const emptyVehicle = (): Vehicle => {
+    return {
+        id: null,
+        licencePlate: ''
+    };
+};

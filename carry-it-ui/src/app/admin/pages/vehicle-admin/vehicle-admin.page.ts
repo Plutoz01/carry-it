@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, TrackByFunction } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, finalize, map, pluck, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, from, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, finalize, map, pluck, switchMap, tap } from 'rxjs/operators';
 import { PAGEABLE_DATA_PROVIDER_TOKEN } from '../../../data-handling/provider.tokens';
 import { Vehicle } from '../../../domain';
 import { VehicleService } from '../../services/vehicle.service';
@@ -62,7 +62,7 @@ export class VehicleAdminPage implements OnDestroy {
 
     async onSelectionChange( newSelection: Vehicle | null ): Promise<void> {
         const vehicleId = newSelection ? newSelection.id : '';
-        await this.updateQueryParams( { vehicleId: vehicleId || null } );
+        await this.updateQueryParams( { id: vehicleId || null } );
     }
 
     async onSave( vehicle: Vehicle ): Promise<void> {
@@ -75,7 +75,7 @@ export class VehicleAdminPage implements OnDestroy {
     }
 
     async onFilter( queryText: string ): Promise<void> {
-        await this.updateQueryParams( { q: queryText || null, vehicleId: null } );
+        await this.updateQueryParams( { q: queryText || null, id: null } );
     }
 
     async onNew(): Promise<void> {
@@ -86,17 +86,22 @@ export class VehicleAdminPage implements OnDestroy {
         this.isLoadingSource.next( true );
         await this.vehicleService.delete$( vehicle.id ).pipe(
             switchMap( () => this.vehicleService.reload$() ),
+            tap( () => from( this.onDeleteSuccess() ) ),
             finalize( () => this.isLoadingSource.next( false ) )
         ).toPromise();
     }
 
-    private async updateQueryParams( paramsObj: Params ): Promise<boolean> {
+    async onDeleteSuccess(): Promise<void> {
+        await this.updateQueryParams( { id: null } );
+    }
+
+    private async updateQueryParams( paramsObj: Params ): Promise<void> {
         this.isLoadingSource.next( true );
         const navExtras: NavigationExtras = {
             queryParams: paramsObj,
             queryParamsHandling: 'merge'
         };
-        return this.router.navigate( [], navExtras ).finally(
+        await this.router.navigate( [], navExtras ).finally(
             () => this.isLoadingSource.next( false )
         );
     }

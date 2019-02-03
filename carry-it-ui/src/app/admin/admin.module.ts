@@ -16,6 +16,7 @@ import { DepotQueryParamResolver } from './resolvers/depot-query-param.resolver'
 import { VehicleQueryParamResolver } from './resolvers/vehicle-query-param.resolver';
 import { DepotService } from './services/depot.service';
 import { VehicleService } from './services/vehicle.service';
+import { CreateEntityComponent } from './components/create-entity/create-entity.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { VehicleService } from './services/vehicle.service';
       VehicleAdminPage,
       CreateDepotPage,
       DepotEditFormComponent,
-      VehicleEditFormComponent
+      VehicleEditFormComponent,
+      CreateEntityComponent
   ],
   imports: [
       CommonModule,

@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { from, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AbstractFilterableDataProvider } from '../../data-handling/abstract-filterable-data-provider.class';
+import { ICrudService } from '../../data-handling/crud-service.interface';
 import { Depot } from '../../domain';
 import { DEFAULT_PAGE_SIZE, PagedResponse } from '../../graphql-api/models/pagination.interface';
 import { CreateDepotQuery } from '../../graphql-api/queries/depots/create.query';
@@ -12,7 +13,7 @@ import { GetDepotByIdQuery } from '../../graphql-api/queries/depots/get-by-id.qu
 import { UpdateDepotQuery } from '../../graphql-api/queries/depots/update.query';
 
 @Injectable()
-export class DepotService extends AbstractFilterableDataProvider<Depot> {
+export class DepotService extends AbstractFilterableDataProvider<Depot> implements ICrudService<number, Depot> {
 
     constructor(
         private readonly apollo: Apollo,
@@ -25,13 +26,13 @@ export class DepotService extends AbstractFilterableDataProvider<Depot> {
         super();
     }
 
-    getById$( id: string ): Observable<Depot | null> {
+    getById$( id: number ): Observable<Depot | null> {
         return this.getDepotByIdQuery.fetch( { id } ).pipe(
             map( response => response.data.getDepotById )
         );
     }
 
-    getAll$(page = 0, size = 999): Observable<Depot[]> {
+    getAll$( page = 0, size = 999 ): Observable<Depot[]> {
         // TODO: proper solution for pagination
         return this.getAllDepotQuery.fetch( { page, size } ).pipe(
             map( response => response.data.getAllDepot ),

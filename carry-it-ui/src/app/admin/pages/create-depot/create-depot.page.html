@@ -1,11 +1,5 @@
-<div class="row">
-	<div class="col-12">
-		<button type="button" class="btn btn-link" (click)="onCancel()">
-			<fa-icon [icon]="cancelIcon"></fa-icon>
-			Cancel
-		</button>
-		<ci-depot-edit-form [depot]="depot" (save)="onSave($event)"></ci-depot-edit-form>
-	</div>
-</div>
+<ci-create-entity [formTemplate]="formTemplate"></ci-create-entity>
 
-<ci-loading-overlay *ngIf="isLoading$ | async"></ci-loading-overlay>
+<ng-template #formTemplate let-onSave="onSaveFn">
+	<ci-depot-edit-form [depot]="depot" (save)="onSave($event)"></ci-depot-edit-form>
+</ng-template>

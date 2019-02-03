@@ -1,6 +1,7 @@
+import { IIdentifiable } from './identifiable.interface';
 import { Vehicle } from './vehicle.interface';
 
-export interface Depot {
+export interface Depot extends IIdentifiable<number> {
     id: number;
     name: string;
     vehicles?: Vehicle[];

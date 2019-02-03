@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { from, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AbstractFilterableDataProvider } from '../../data-handling/abstract-filterable-data-provider.class';
+import { ICrudService } from '../../data-handling/crud-service.interface';
 import { Vehicle } from '../../domain';
 import { DEFAULT_PAGE_SIZE, PagedResponse } from '../../graphql-api/models/pagination.interface';
 import { CreateVehicleQuery } from '../../graphql-api/queries/vehicles/create.query';
@@ -12,7 +13,7 @@ import { GetVehicleByIdQuery } from '../../graphql-api/queries/vehicles/get-by-i
 import { UpdateVehicleQuery } from '../../graphql-api/queries/vehicles/update.query';
 
 @Injectable()
-export class VehicleService extends AbstractFilterableDataProvider<Vehicle> {
+export class VehicleService extends AbstractFilterableDataProvider<Vehicle> implements ICrudService<number, Vehicle> {
 
     constructor(
         private readonly apollo: Apollo,
@@ -25,7 +26,7 @@ export class VehicleService extends AbstractFilterableDataProvider<Vehicle> {
         super();
     }
 
-    getById$( id: string ): Observable<Vehicle | null> {
+    getById$( id: number ): Observable<Vehicle | null> {
         return this.getVehicleByIdQuery.fetch( { id } ).pipe(
             map( response => response.data.getVehicleById )
         );

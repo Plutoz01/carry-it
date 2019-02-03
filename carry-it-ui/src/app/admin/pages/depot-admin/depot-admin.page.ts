@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, TrackByFunction } from '
 import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, finalize, map, pluck, switchMap } from 'rxjs/operators';
-import { PAGEABLE_DATA_PROVIDER } from '../../../data-handling/provider.tokens';
+import { PAGEABLE_DATA_PROVIDER_TOKEN } from '../../../data-handling/provider.tokens';
 import { Depot } from '../../../domain';
 import { DepotService } from '../../services/depot.service';
 
@@ -12,7 +12,7 @@ import { DepotService } from '../../services/depot.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
-            provide: PAGEABLE_DATA_PROVIDER,
+            provide: PAGEABLE_DATA_PROVIDER_TOKEN,
             useExisting: DepotService
         }
     ]

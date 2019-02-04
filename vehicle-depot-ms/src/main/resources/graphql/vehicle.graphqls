@@ -1,0 +1,33 @@
+extend type Query {
+    getAllVehicle(page: Page, queryText: String): PagedVehicles!
+    getVehicleById(id: ID!): Vehicle
+}
+
+extend type Mutation {
+    createVehicle(input: CreateVehicleInput!): Vehicle!
+    updateVehicle(input: UpdateVehicleInput!): Vehicle!
+    deleteVehicle(id: ID!): ID!
+}
+
+type Vehicle {
+    id: ID!
+    licencePlate: String!
+    depotId: ID!
+    depot: Depot!
+}
+
+type PagedVehicles {
+    items: [Vehicle]!
+    pageInfo: PageInfo!
+}
+
+input CreateVehicleInput {
+    licencePlate: String!
+    depotId: ID!
+}
+
+input UpdateVehicleInput {
+    id: ID!
+    depotId: ID!
+    licencePlate: String!
+}

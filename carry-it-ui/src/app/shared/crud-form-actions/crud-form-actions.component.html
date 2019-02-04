@@ -1,0 +1,14 @@
+<div class="pt-2 pb-2 d-flex justify-content-end">
+	<button type="button" class="btn btn-primary" (click)="onSave()" [attr.disabled]="savable ? null : ''">
+		<fa-icon [icon]="saveIcon"></fa-icon>
+		Save
+	</button>
+	<button type="button" class="btn btn-secondary ml-2" (click)="reset.emit()">
+		<fa-icon [icon]="resetIcon"></fa-icon>
+		Reset
+	</button>
+	<button type="button" class="btn btn-danger ml-2" (click)="onDelete()" [attr.disabled]="deletable ? null : ''">
+		<fa-icon [icon]="deleteIcon"></fa-icon>
+		Delete
+	</button>
+</div>

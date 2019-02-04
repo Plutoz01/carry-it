@@ -1,0 +1,9 @@
+.loading-dialog::ng-deep {
+  z-index: 1001;
+  color: #333;
+
+  .fa-spin {
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+  }
+}

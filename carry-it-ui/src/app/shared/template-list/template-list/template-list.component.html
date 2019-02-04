@@ -1,6 +1,10 @@
 <ul class="list-group">
-	<li *ngFor="let item of items; index as idx; count as cnt; trackBy: trackByFn" class="list-group-item">
-		<ng-container *ngTemplateOutlet="itemTemplate ||defaultItemTpl; context: { $implicit: item, index:idx, count: cnt }">
+	<li *ngFor="let item of items; index as idx; count as cnt; trackBy: trackByFn"
+		[ngClass]="{ selected: isSelected(item) }"
+		(click)="onItemClick(item)"
+		class="list-group-item">
+
+		<ng-container *ngTemplateOutlet="itemTemplate ||defaultItemTpl; context: { $implicit: item, index:idx, count: cnt, isSelected: isSelected(item) }">
 		</ng-container>
 	</li>
 </ul>

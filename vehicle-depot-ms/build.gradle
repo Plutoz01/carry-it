@@ -19,12 +19,15 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.plutoz.carryit'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
 ext {
     lombokVersion = '1.18.4'
 }
 
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -34,6 +37,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation('com.graphql-java-kickstart:graphql-spring-boot-starter:5.3.1')
     implementation('org.flywaydb:flyway-core:5.2.3')
     runtimeOnly('org.postgresql:postgresql')
 
@@ -42,5 +46,6 @@ dependencies {
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.security:spring-security-test')
+    testImplementation('com.graphql-java-kickstart:graphql-spring-boot-starter-test:5.3.1')
     testImplementation('com.h2database:h2:1.4.197')
 }

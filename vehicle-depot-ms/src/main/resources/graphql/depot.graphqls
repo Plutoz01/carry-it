@@ -1,0 +1,31 @@
+extend type Query {
+    getAllDepot(page: Page, queryText: String): PagedDepots!
+    getDepotById(id: ID!): Depot
+}
+
+extend type Mutation {
+    createDepot(input: CreateDepotInput!): Depot!
+    updateDepot(input: UpdateDepotInput!): Depot!
+    deleteDepot(id: ID!): ID!
+}
+
+type Depot {
+    id: ID!
+    name: String!
+    vehicles: [Vehicle]!
+    vehicleCount: Int!
+}
+
+type PagedDepots {
+    items: [Depot]!
+    pageInfo: PageInfo!
+}
+
+input CreateDepotInput {
+    name: String!
+}
+
+input UpdateDepotInput {
+    id: ID!
+    name: String!
+}

@@ -1,0 +1,9 @@
+input Page {
+    page: Int!
+    size: Int!
+}
+
+type PageInfo {
+    totalPages: Int!
+    totalElements: Int!
+}

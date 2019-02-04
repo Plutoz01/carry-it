@@ -19,7 +19,6 @@ public abstract class SanitizedGraphQLException extends RuntimeException impleme
         return ErrorType.ValidationError;
     }
 
-
     @Override
     @JsonIgnore
     public StackTraceElement[] getStackTrace() {

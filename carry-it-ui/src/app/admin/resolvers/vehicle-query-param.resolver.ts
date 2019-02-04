@@ -6,6 +6,7 @@ import { VehicleService } from '../services/vehicle.service';
 
 @Injectable()
 export class VehicleQueryParamResolver implements Resolve<Vehicle> {
+
     constructor( private readonly vehicleService: VehicleService ) {
     }
 

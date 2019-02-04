@@ -1,5 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, Output, TemplateRef, TrackByFunction } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Inject,
+    Input,
+    OnDestroy,
+    Output,
+    TemplateRef,
+    TrackByFunction
+} from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { IPageableDataProvider } from '../../data-handling/pageable-data-provider.interface';
 import { PAGEABLE_DATA_PROVIDER_TOKEN } from '../../data-handling/provider.tokens';
 import { TemplateListItemContext } from '../template-list/template-list-item-context.interface';
@@ -11,7 +22,7 @@ import { TemplateListItemContext } from '../template-list/template-list-item-con
     styleUrls: [ './consumer-pageable-list.component.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush
 } )
-export class ConsumerPageableListComponent<T> {
+export class ConsumerPageableListComponent<T> implements OnDestroy {
 
     @Input() itemTemplate?: TemplateRef<TemplateListItemContext<T>>;
     @Input() trackByFn?: TrackByFunction<T>;
@@ -20,6 +31,8 @@ export class ConsumerPageableListComponent<T> {
 
     @Output() itemClick = new EventEmitter<T>();
     @Output() selectionChange = new EventEmitter<T | null>();
+
+    private readonly onDestroySource = new Subject();
 
     constructor( @Inject( PAGEABLE_DATA_PROVIDER_TOKEN ) private readonly pageableDataProvider: IPageableDataProvider<T> ) {
     }
@@ -44,11 +57,20 @@ export class ConsumerPageableListComponent<T> {
         return this.pageableDataProvider.pageSize$;
     }
 
+    ngOnDestroy(): void {
+        this.onDestroySource.next();
+        this.onDestroySource.complete();
+    }
+
     onPageChange( newPage: number ): void {
-        this.pageableDataProvider.goToPage$( newPage ).subscribe();
+        this.pageableDataProvider.goToPage$( newPage )
+            .pipe( takeUntil( this.onDestroySource ) )
+            .subscribe();
     }
 
     onPageSizeChange( newPageSize: number ): void {
-        this.pageableDataProvider.setPageSize$( newPageSize ).subscribe();
+        this.pageableDataProvider.setPageSize$( newPageSize )
+            .pipe( takeUntil( this.onDestroySource ) )
+            .subscribe();
     }
 }

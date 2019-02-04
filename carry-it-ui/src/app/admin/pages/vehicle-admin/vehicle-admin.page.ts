@@ -53,9 +53,7 @@ export class VehicleAdminPage implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if ( this.searchSubscription && !this.searchSubscription.closed ) {
-            this.searchSubscription.unsubscribe();
-        }
+        this.searchSubscription.unsubscribe();
     }
 
     public readonly listItemTrackByFn: TrackByFunction<Vehicle> = ( idx, item: Vehicle ) => item ? item.id : null;

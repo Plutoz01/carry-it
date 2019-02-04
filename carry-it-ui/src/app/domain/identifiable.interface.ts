@@ -1,3 +1,3 @@
 export interface IIdentifiable<ID> {
-    readonly id: ID;
+    readonly id?: ID;
 }

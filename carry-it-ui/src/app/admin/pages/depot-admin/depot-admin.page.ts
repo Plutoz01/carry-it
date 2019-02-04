@@ -53,9 +53,7 @@ export class DepotAdminPage implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if ( this.searchSubscription && !this.searchSubscription.closed ) {
-            this.searchSubscription.unsubscribe();
-        }
+        this.searchSubscription.unsubscribe();
     }
 
     public readonly listItemTrackByFn: TrackByFunction<Depot> = ( idx, item: Depot ) => item ? item.id : null;

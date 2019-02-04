@@ -28,7 +28,7 @@ export class DepotEditFormComponent implements OnChanges {
 
     get isDeletable(): boolean {
         return !!this.depot
-            && !!this.depot.id
+            && !isNaN(this.depot.id)
             && !this.hasVehicles;
     }
 

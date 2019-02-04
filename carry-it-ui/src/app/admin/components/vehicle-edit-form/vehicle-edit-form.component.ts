@@ -38,7 +38,7 @@ export class VehicleEditFormComponent implements OnChanges {
 
     get isDeletable(): boolean {
         return !!this.vehicle
-            && !!this.vehicle.id;
+            && !isNaN(this.vehicle.id);
     }
 
     ngOnChanges( changes: SimpleChanges ): void {

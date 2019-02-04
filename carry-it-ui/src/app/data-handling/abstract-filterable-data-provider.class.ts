@@ -13,6 +13,9 @@ export abstract class AbstractFilterableDataProvider<T> extends AbstractPageable
     }
 
     setQueryText$( text: string ): Observable<T[]> {
+        if ( typeof text === 'string' ) {
+            text = text.trim();
+        }
         this.queryTextSource.next( text );
         return this.goToPage$( 0, true );
     }

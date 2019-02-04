@@ -7,7 +7,7 @@ import { ICrudService } from '../../../data-handling/crud-service.interface';
 import { CRUD_SERVICE_TOKEN } from '../../../data-handling/provider.tokens';
 import { IIdentifiable } from '../../../domain/identifiable.interface';
 
-export interface CreateEntityTemplateContext<ID, T extends IIdentifiable<ID>> {
+export interface CreateEntityFormTemplateContext<ID, T extends IIdentifiable<ID>> {
     onSaveFn: (entity: T) => Promise<any>;
 }
 
@@ -20,7 +20,7 @@ export interface CreateEntityTemplateContext<ID, T extends IIdentifiable<ID>> {
 export class CreateEntityComponent<ID, T extends IIdentifiable<ID>> {
 
     @Input()
-    formTemplate: TemplateRef<CreateEntityTemplateContext<ID, T>>;
+    formTemplate: TemplateRef<CreateEntityFormTemplateContext<ID, T>>;
 
     readonly cancelIcon = faAngleDoubleLeft;
     private readonly isLoadingSource = new BehaviorSubject( false );
@@ -33,9 +33,9 @@ export class CreateEntityComponent<ID, T extends IIdentifiable<ID>> {
     ) {
     }
 
-    async onSave( entity: T ): Promise<any> {
+    async onSave( entity: T ): Promise<void> {
         this.isLoadingSource.next( true );
-        return this.crudService.create$( entity ).pipe(
+        await this.crudService.create$( entity ).pipe(
             switchMap( saveResult => from( this.navigateToAdminPage( saveResult.id ) ) ),
             finalize( () => this.isLoadingSource.next( false ) )
         ).toPromise();
@@ -45,13 +45,13 @@ export class CreateEntityComponent<ID, T extends IIdentifiable<ID>> {
         await this.navigateToAdminPage( null );
     }
 
-    get context(): CreateEntityTemplateContext<ID, T> {
+    get context(): CreateEntityFormTemplateContext<ID, T> {
         return {
             onSaveFn: (entity: T) => this.onSave(entity)
         };
     }
 
-    private async navigateToAdminPage( id: ID ): Promise<boolean> {
-        return this.router.navigate( [ '../' ], { queryParams: { id }, relativeTo: this.route } );
+    private async navigateToAdminPage( id: ID ): Promise<void> {
+        await this.router.navigate( [ '../' ], { queryParams: { id }, relativeTo: this.route } );
     }
 }

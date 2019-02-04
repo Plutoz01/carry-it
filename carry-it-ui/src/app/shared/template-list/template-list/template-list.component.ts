@@ -19,7 +19,6 @@ export class TemplateListComponent<T> {
 
     onItemClick( item: T ) {
         if ( this.selectable ) {
-
             this.selected = this.compareWithSelected( item ) ? null : item;
             this.selectionChange.emit( this.selected );
         }

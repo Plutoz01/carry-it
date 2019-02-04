@@ -7,6 +7,7 @@ import { DepotQueryParamResolver } from './resolvers/depot-query-param.resolver'
 import { VehicleQueryParamResolver } from './resolvers/vehicle-query-param.resolver';
 
 const routes: Routes = [
+    { path: '', redirectTo: 'depots', pathMatch: 'full' },
     {
         path: 'depots',
         component: DepotAdminPage,

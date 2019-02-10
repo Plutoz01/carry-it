@@ -69,7 +69,7 @@ Manager:
 	
 
 Administrator:
-1. As a manager I want to manage (create, list, update and soft-delete):
+1. As an admin I want to manage (create, list, update and soft-delete):
 	- depots
 	- vehicles
 	- users (with Roles)

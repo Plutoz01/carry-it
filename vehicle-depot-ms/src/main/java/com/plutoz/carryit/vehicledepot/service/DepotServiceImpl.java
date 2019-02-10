@@ -10,7 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -33,6 +38,18 @@ public class DepotServiceImpl implements DepotService {
     @Override
     public Optional<Depot> findById(long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public CompletableFuture<List<Depot>> findByIds(List<Long> ids) {
+        return repository.findByIdIsIn(ids).thenApply(depots -> {
+            Map<Long, Depot> depotsById = depots.stream()
+                    .collect(Collectors.toMap(Depot::getId, Function.identity()));
+            // preserve original order of requested ids
+            return ids.stream()
+                    .map(depotsById::get)
+                    .collect(Collectors.toList());
+        });
     }
 
     @Override

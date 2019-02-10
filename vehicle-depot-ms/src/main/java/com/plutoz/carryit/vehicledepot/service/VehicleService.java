@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface VehicleService {
 
@@ -16,7 +17,7 @@ public interface VehicleService {
 
     Optional<Vehicle> findById(long id);
 
-    List<Vehicle> findByDepotId(long depotId);
+    CompletableFuture<List<List<Vehicle>>> findByDepotIds(List<Long> depotIds);
 
     Page<Vehicle> findByLicencePlate(String queryText, Pageable pageable);
 

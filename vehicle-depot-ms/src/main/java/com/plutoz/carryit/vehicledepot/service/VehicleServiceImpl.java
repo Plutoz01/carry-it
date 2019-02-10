@@ -9,8 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Service
 @Transactional
@@ -34,8 +39,17 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> findByDepotId(long depotId) {
-        return repository.findByDepotId(depotId);
+    public CompletableFuture<List<List<Vehicle>>> findByDepotIds(List<Long> depotIds) {
+
+        return repository.findByDepotIdIsIn(depotIds).thenApply(vehicles -> {
+            var vehiclesByDepotId = vehicles.stream()
+                    .collect(groupingBy(Vehicle::getDepotId));
+
+            //preserve original order of depotIds
+            return depotIds.stream()
+                    .map(depotId -> vehiclesByDepotId.getOrDefault(depotId, Collections.emptyList()))
+                    .collect(Collectors.toList());
+        });
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.plutoz.carryit.vehicledepot.graphql;
 
 import com.plutoz.carryit.vehicledepot.domain.Depot;
+import com.plutoz.carryit.vehicledepot.domain.Vehicle;
 import com.plutoz.carryit.vehicledepot.service.DepotService;
+import com.plutoz.carryit.vehicledepot.service.VehicleService;
 import graphql.servlet.GraphQLContext;
 import graphql.servlet.GraphQLContextBuilder;
 import org.dataloader.DataLoader;
@@ -13,17 +15,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.Session;
 import javax.websocket.server.HandshakeRequest;
+import java.util.List;
 
 @Component
 public class CustomGraphQLContextBuilder implements GraphQLContextBuilder {
 
     public static final String DEPOT_BY_ID_LOADER = "DepotByIdLoader";
+    public static final String VEHICLES_BY_DEPOT_ID_LOADER = "VehiclesByDepotIdLoader";
 
     private final DepotService depotService;
+    private final VehicleService vehicleService;
 
     @Autowired
-    public CustomGraphQLContextBuilder(DepotService depotService) {
+    public CustomGraphQLContextBuilder(DepotService depotService, VehicleService vehicleService) {
         this.depotService = depotService;
+        this.vehicleService = vehicleService;
     }
 
     @Override
@@ -52,12 +58,17 @@ public class CustomGraphQLContextBuilder implements GraphQLContextBuilder {
 
     private void setDataLoaderRegistry(GraphQLContext ctx) {
         DataLoaderRegistry registry = new DataLoaderRegistry();
-        registry.register(DEPOT_BY_ID_LOADER, getDepotByIdLoader());
+        registry.register(DEPOT_BY_ID_LOADER, getDepotByIdLoader())
+                .register(VEHICLES_BY_DEPOT_ID_LOADER, getVehiclesByDepotIdLoader());
 
         ctx.setDataLoaderRegistry(registry);
     }
 
     private DataLoader<Long, Depot> getDepotByIdLoader() {
         return new DataLoader<>(depotService::findByIds);
+    }
+
+    private DataLoader<Long, List<Vehicle>> getVehiclesByDepotIdLoader() {
+        return new DataLoader<>(vehicleService::findByDepotIds);
     }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import * as _ from 'lodash';
+import { range } from 'lodash';
 
 @Component( {
     selector: 'ci-paginator',
@@ -47,7 +47,7 @@ export class PaginatorComponent implements OnChanges {
         let rangeEnd = this.actualPage + this.pageRangeWidth;
         rangeEnd = rangeEnd > this.totalPages - 1 ? this.totalPages - 1 : rangeEnd;
 
-        return _.range( rangeStart, rangeEnd + 1 );
+        return range( rangeStart, rangeEnd + 1 );
     }
 
     ngOnChanges( changes: SimpleChanges ) {

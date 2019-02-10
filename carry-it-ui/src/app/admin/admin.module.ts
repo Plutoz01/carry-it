@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GraphqlApiModule } from '../graphql-api/graphql-api.module';
 import { CrudFormActionsModule } from '../shared/crud-form-actions/crud-form-actions.module';
+import { DropdownSearchModule } from '../shared/dropdown-search/dropdown-search.module';
 import { LoadingOverlayModule } from '../shared/loading-overlay/loading-overlay.module';
 import { MasterDetailModule } from '../shared/master-detail/master-detail.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -35,6 +36,7 @@ import { CreateEntityComponent } from './components/create-entity/create-entity.
       FontAwesomeModule,
 
       CrudFormActionsModule,
+      DropdownSearchModule,
       GraphqlApiModule,
       AdminRoutingModule,
       LoadingOverlayModule,

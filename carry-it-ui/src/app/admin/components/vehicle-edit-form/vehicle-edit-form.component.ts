@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { trim } from 'lodash';
+import { Observable, of, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { Depot, Vehicle } from '../../../domain';
+import { DEFAULT_PAGE_SIZE } from '../../../graphql-api/models/pagination.interface';
 import { DepotService } from '../../services/depot.service';
 
 @Component( {
@@ -16,8 +19,8 @@ export class VehicleEditFormComponent implements OnChanges {
     @Output() delete = new EventEmitter<Vehicle>();
 
     readonly vehicleForm: FormGroup;
-    readonly depots$: Observable<Depot[]>;
-    readonly depotCompareFn = (depot1: Depot, depot2: Depot) => depot1 && depot2 ? depot1.id === depot2.id : false;
+    readonly depotSearchResult$: Observable<Depot[]>;
+    private readonly depotSearchTextSource = new Subject<string>();
 
     constructor(
         private readonly formBuilder: FormBuilder,
@@ -29,7 +32,19 @@ export class VehicleEditFormComponent implements OnChanges {
             licencePlate: formBuilder.control( '', Validators.required )
         } );
 
-        this.depots$ = this.depotService.getAll$();
+        this.depotSearchResult$ = this.depotSearchTextSource.asObservable().pipe(
+            debounceTime( 400 ),
+            map( searchText => trim( searchText ) ),
+            distinctUntilChanged(),
+            switchMap( searchText => {
+                if ( searchText ) {
+                    return this.depotService.getFilteredItems$( 0, DEFAULT_PAGE_SIZE, searchText ).pipe(
+                        map( pagedResponse => pagedResponse.items )
+                    );
+                }
+                return of( [] );
+            } ),
+        );
     }
 
     get isSavable(): boolean {
@@ -38,7 +53,7 @@ export class VehicleEditFormComponent implements OnChanges {
 
     get isDeletable(): boolean {
         return !!this.vehicle
-            && !isNaN(this.vehicle.id);
+            && !isNaN( this.vehicle.id );
     }
 
     ngOnChanges( changes: SimpleChanges ): void {
@@ -56,5 +71,9 @@ export class VehicleEditFormComponent implements OnChanges {
 
     onReset(): void {
         this.vehicleForm.reset( this.vehicle );
+    }
+
+    onDepotSearch( text: string | undefined ): void {
+        this.depotSearchTextSource.next( text );
     }
 }

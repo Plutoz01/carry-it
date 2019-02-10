@@ -14,8 +14,6 @@ import { faCaretDown, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { get as getKey } from 'lodash';
 import { IIdentifiable } from '../../domain/identifiable.interface';
 
-
-// TODO: click-outside
 @Component( {
     selector: 'ci-dropdown-search',
     templateUrl: './dropdown-search.component.html',
@@ -112,5 +110,4 @@ export class DropdownSearchComponent<T extends IIdentifiable<any>> implements Co
     }
 
     private _onChange = ( _: T ) => undefined;
-
 }

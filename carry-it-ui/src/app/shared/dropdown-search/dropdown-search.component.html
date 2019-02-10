@@ -1,10 +1,12 @@
 <div class="searchable-dropdown dropdown" (keyup.esc)="onClose()">
-	<button class="btn btn-outline-input dropdown-button" type="button" (click)="onToggleOpen()">
+	<button class="btn btn-outline-input dropdown-button class searchable-dropdown-toggle" type="button" (click)="onToggleOpen()">
 		<span class="selected-text">{{ selected ? getDisplayValueFrom( selected ) : 'Please select' }}</span>
 		<fa-icon [icon]="caretDownIcon"></fa-icon>
 	</button>
 
-	<div class="dropdown-menu" [class.show]="isOpen">
+	<div class="dropdown-menu" [class.show]="isOpen" (ciClickedOutside)="onClose()"
+		 [clickedOutsideActive]="isOpen"
+		 [excludeClasses]="['searchable-dropdown-toggle']">
 		<div class="input-group input-group-sm">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><fa-icon [icon]="searchIcon"></fa-icon></span>

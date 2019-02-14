@@ -1,19 +1,9 @@
-buildscript {
-    ext {
-        springBootVersion = '2.1.1.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'org.springframework.boot' version '2.1.2.RELEASE'
+    id 'java'
 }
 
-
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.plutoz.carryit'
@@ -21,16 +11,11 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
 
-ext {
-    lombokVersion = '1.18.4'
-}
-
 
 repositories {
     jcenter()
     mavenCentral()
 }
-
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -38,12 +23,9 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation('com.graphql-java-kickstart:graphql-spring-boot-starter:5.3.1')
-    implementation('org.flywaydb:flyway-core:5.2.3')
+    implementation('org.flywaydb:flyway-core:5.2.4')
     runtimeOnly('org.postgresql:postgresql')
-
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    implementation "org.projectlombok:lombok:$lombokVersion"
-
+    compileOnly 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.security:spring-security-test')
     testImplementation('com.graphql-java-kickstart:graphql-spring-boot-starter-test:5.3.1')

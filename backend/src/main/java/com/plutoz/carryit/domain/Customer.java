@@ -8,18 +8,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@Builder
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vehicle implements Identifiable<Long> {
-    private static final String ID_SEQ_GENERATOR = "vehicle_id_seq_gen";
-
+public class Customer implements Identifiable<Long> {
+    private static final String ID_SEQ_GENERATOR = "customer_id_seq_gen";
 
     @Id
-    @SequenceGenerator(name = ID_SEQ_GENERATOR, sequenceName = "vehicle_id_seq", allocationSize = 20)
+    @SequenceGenerator(name = ID_SEQ_GENERATOR, sequenceName = "customer_id_seq", allocationSize = 20)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_GENERATOR)
     private Long id;
-    private Long depotId;
-    private String licencePlate;
+    private String name;
 }

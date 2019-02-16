@@ -4,8 +4,7 @@ CREATE TABLE depot
   name TEXT NOT NULL,
   CONSTRAINT depot_pkey PRIMARY KEY (id)
 );
-ALTER TABLE depot
-  OWNER TO carryit;
+ALTER TABLE depot OWNER TO carryit;
 ALTER SEQUENCE depot_id_seq INCREMENT 20;
 
 
@@ -19,8 +18,7 @@ CREATE TABLE vehicle
          REFERENCES depot (id) MATCH SIMPLE
          ON UPDATE RESTRICT ON DELETE RESTRICT
 );
-ALTER TABLE vehicle
-  OWNER TO carryit;
+ALTER TABLE vehicle OWNER TO carryit;
 ALTER SEQUENCE vehicle_id_seq INCREMENT 20;
 CREATE INDEX depot_id_idx ON vehicle USING hash (depot_id);
 

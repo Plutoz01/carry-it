@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Depot {
+public class Depot implements Identifiable<Long> {
     private static final String ID_SEQ_GENERATOR = "depot_id_seq_gen";
 
     @Id

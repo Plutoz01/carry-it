@@ -6,24 +6,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public interface VehicleService {
+public interface VehicleService extends CrudService<Vehicle, Long> {
 
     Sort DEFAULT_SORT = new Sort(Sort.Direction.DESC, "id");
-
-    Page<Vehicle> findAll(Pageable pageable);
-
-    Optional<Vehicle> findById(long id);
 
     CompletableFuture<List<List<Vehicle>>> findByDepotIds(List<Long> depotIds);
 
     Page<Vehicle> findByLicencePlate(String queryText, Pageable pageable);
 
-    int countByDepotId(long vehicleId);
-
-    Vehicle save(Vehicle vehicle);
-
-    long delete(long vehicleId);
+    int countByDepotId(Long vehicleId);
 }

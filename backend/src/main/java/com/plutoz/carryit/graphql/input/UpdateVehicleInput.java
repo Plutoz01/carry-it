@@ -1,16 +1,18 @@
-package com.plutoz.carryit.graphql.mutation.input;
+package com.plutoz.carryit.graphql.input;
 
 import com.plutoz.carryit.domain.Vehicle;
 import lombok.Data;
 
 @Data
-public class CreateVehicleInput {
+public class UpdateVehicleInput implements UpdateEntityInput<Vehicle, Long> {
+    private long id;
     private long depotId;
     private String licencePlate;
 
-
-    public Vehicle toVehicle() {
+    @Override
+    public Vehicle toEntity() {
         return Vehicle.builder()
+                .id(getId())
                 .depotId(getDepotId())
                 .licencePlate(getLicencePlate())
                 .build();

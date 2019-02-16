@@ -1,4 +1,4 @@
-package com.plutoz.carryit.graphql.query.pagination;
+package com.plutoz.carryit.graphql.pagination;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

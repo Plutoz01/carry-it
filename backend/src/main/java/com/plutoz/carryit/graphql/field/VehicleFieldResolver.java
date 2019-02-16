@@ -1,4 +1,4 @@
-package com.plutoz.carryit.graphql.query;
+package com.plutoz.carryit.graphql.field;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.plutoz.carryit.graphql.CustomGraphQLContextBuilder;

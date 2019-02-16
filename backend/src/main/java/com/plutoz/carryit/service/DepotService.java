@@ -6,22 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public interface DepotService {
+public interface DepotService extends CrudService<Depot, Long> {
 
     Sort DEFAULT_SORT = new Sort(Sort.Direction.DESC, "id");
-
-    Page<Depot> findAll(Pageable pageable);
-
-    Optional<Depot> findById(long id);
 
     CompletableFuture<List<Depot>> findByIds(List<Long> ids);
 
     Page<Depot> findByName(String queryText, Pageable pageable);
-
-    Depot save(Depot depot);
-
-    long delete(long depotId);
 }

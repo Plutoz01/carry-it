@@ -1,13 +1,14 @@
-package com.plutoz.carryit.graphql.mutation.input;
+package com.plutoz.carryit.graphql.input;
 
 import com.plutoz.carryit.domain.Depot;
 import lombok.Data;
 
 @Data
-public class CreateDepotInput {
+public class CreateDepotInput implements CreateEntityInput<Depot, Long> {
     private String name;
 
-    public Depot toDepot() {
+    @Override
+    public Depot toEntity() {
         return Depot.builder()
                 .name(getName())
                 .build();

@@ -1,0 +1,10 @@
+dependencies {
+    compile project(':common-lib')
+
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+	implementation group: 'org.flywaydb', name: 'flyway-core', version: "${rootProject.flywayVersion}"
+	runtimeOnly group: 'org.postgresql', name: 'postgresql'
+
+	testImplementation group: 'junit', name: 'junit', version: "${rootProject.junitVersion}"
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}

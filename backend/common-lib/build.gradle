@@ -1,0 +1,11 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    api group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter', version: "${rootProject.graphqlStarterVersion}"
+
+    testImplementation group: 'junit', name: 'junit', version: "${rootProject.junitVersion}"
+    testImplementation group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter-test',  version: "${rootProject.graphqlStarterVersion}"
+}

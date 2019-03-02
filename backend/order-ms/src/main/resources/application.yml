@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1/carryit-order
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+graphiql:
+  enabled: true
+  static:
+    basepath: /
+  cdn:
+    enabled: false

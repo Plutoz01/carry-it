@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+  order-service:
+    container_name: order-service
+    image: carry-it/order-ms:latest
+    restart: always
+    ports:
+      - 8101:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db/carryit-order
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - db
+
+  vehicle-service:
+    container_name: vehicle-service
+    image: carry-it/vehicle-ms:latest
+    restart: always
+    ports:
+      - 8102:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db/carryit-vehicle
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - db
+
+  graphql-api:
+    container_name: graphql-api
+    image: carry-it/graphql-api:latest
+    restart: always
+    ports:
+      - 4000:4000
+    environment:
+      ORDER_SERVICE_URL: http://order-service:8080/graphql
+      VEHICLE_SERVICE_URL: http://vehicle-service:8080/graphql
+    depends_on:
+      - order-service
+      - vehicle-service
+
+  db:
+    container_name: postgres-db
+    image: postgres:latest
+    restart: on-failure
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  pgAdmin:
+    container_name: pgAdmin4
+    image: dpage/pgadmin4
+    restart: on-failure
+    ports:
+      - 8080:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@carryit.com
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}

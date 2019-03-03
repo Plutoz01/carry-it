@@ -1,7 +1,7 @@
-package com.plutoz.carryit.vehicle.graphql.input;
+package com.plutoz.carryit.order.graphql.input;
 
 import com.plutoz.carryit.common.graphql.input.CreateEntityInput;
-import com.plutoz.carryit.vehicle.domain.Customer;
+import com.plutoz.carryit.order.domain.Customer;
 import lombok.Data;
 
 @Data

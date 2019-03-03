@@ -1,6 +1,6 @@
-package com.plutoz.carryit.vehicle.repository;
+package com.plutoz.carryit.order.repository;
 
-import com.plutoz.carryit.vehicle.domain.Customer;
+import com.plutoz.carryit.order.domain.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

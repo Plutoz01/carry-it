@@ -1,8 +1,8 @@
-package com.plutoz.carryit.vehicle.service;
+package com.plutoz.carryit.order.service;
 
 import com.plutoz.carryit.common.service.AbstractCrudService;
-import com.plutoz.carryit.vehicle.domain.Customer;
-import com.plutoz.carryit.vehicle.repository.CustomerRepository;
+import com.plutoz.carryit.order.domain.Customer;
+import com.plutoz.carryit.order.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

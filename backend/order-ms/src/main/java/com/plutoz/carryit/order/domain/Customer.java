@@ -1,4 +1,4 @@
-package com.plutoz.carryit.vehicle.domain;
+package com.plutoz.carryit.order.domain;
 
 import com.plutoz.carryit.common.domain.Identifiable;
 import lombok.AllArgsConstructor;

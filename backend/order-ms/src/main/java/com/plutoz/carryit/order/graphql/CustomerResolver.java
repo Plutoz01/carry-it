@@ -1,12 +1,12 @@
-package com.plutoz.carryit.vehicle.graphql;
+package com.plutoz.carryit.order.graphql;
 
-import com.plutoz.carryit.common.graphql.resolver.AbstractCrudResolver;
-import com.plutoz.carryit.vehicle.domain.Customer;
-import com.plutoz.carryit.vehicle.graphql.input.CreateCustomerInput;
-import com.plutoz.carryit.vehicle.graphql.input.UpdateCustomerInput;
 import com.plutoz.carryit.common.graphql.pagination.PageRequest;
 import com.plutoz.carryit.common.graphql.pagination.PagedResponse;
-import com.plutoz.carryit.vehicle.service.CustomerService;
+import com.plutoz.carryit.common.graphql.resolver.AbstractCrudResolver;
+import com.plutoz.carryit.order.domain.Customer;
+import com.plutoz.carryit.order.graphql.input.CreateCustomerInput;
+import com.plutoz.carryit.order.graphql.input.UpdateCustomerInput;
+import com.plutoz.carryit.order.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

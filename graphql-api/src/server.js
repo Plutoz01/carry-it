@@ -1,18 +1,19 @@
 const express = require( 'express' );
 const { weaveSchemas } = require( 'graphql-weaver' );
 const express_graphql = require( 'express-graphql' );
+const cors = require( 'cors' );
 
 const getGraphQLSchema = async () => {
 	return await weaveSchemas( {
 		endpoints: [
 			{
-				namespace: 'vehicle',
-				typePrefix: 'Vehicle',
+				namespace: 'vehicles',
+				typePrefix: 'Vehicles_',
 				url: 'http://localhost:8100/graphql' // url to a GraphQL endpoint
 			},
 			{
-				namespace: 'order',
-				typePrefix: 'Order',
+				namespace: 'orders',
+				typePrefix: 'Orders_',
 				url: 'http://localhost:8101/graphql' // url to a GraphQL endpoint
 			}
 		]
@@ -21,6 +22,9 @@ const getGraphQLSchema = async () => {
 
 // Create an express server and a GraphQL endpoint
 const app = express();
+
+// Allow CORS
+app.use( cors() );
 
 app.use( '/graphql', express_graphql( async () => ({
 	schema: await getGraphQLSchema(),

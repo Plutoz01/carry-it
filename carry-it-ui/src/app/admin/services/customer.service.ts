@@ -6,11 +6,11 @@ import { AbstractFilterableDataProvider } from '../../data-handling/abstract-fil
 import { ICrudService } from '../../data-handling/crud-service.interface';
 import { Customer } from '../../domain';
 import { DEFAULT_PAGE_SIZE, PagedResponse } from '../../graphql-api/models/pagination.interface';
-import { CreateCustomerQuery } from '../../graphql-api/queries/customers/create.query';
-import { DeleteCustomerQuery } from '../../graphql-api/queries/customers/delete.query';
+import { CreateCustomerQuery, CreateCustomerResponse } from '../../graphql-api/queries/customers/create.query';
+import { DeleteCustomerQuery, DeleteCustomerResponse } from '../../graphql-api/queries/customers/delete.query';
 import { GetAllCustomerQuery } from '../../graphql-api/queries/customers/get-all.query';
 import { GetCustomerByIdQuery } from '../../graphql-api/queries/customers/get-by-id.query';
-import { UpdateCustomerQuery } from '../../graphql-api/queries/customers/update.query';
+import { UpdateCustomerQuery, UpdateCustomerResponse } from '../../graphql-api/queries/customers/update.query';
 
 @Injectable()
 export class CustomerService extends AbstractFilterableDataProvider<Customer> implements ICrudService<number, Customer> {
@@ -28,34 +28,34 @@ export class CustomerService extends AbstractFilterableDataProvider<Customer> im
 
     getById$( id: number ): Observable<Customer | null> {
         return this.getCustomerByIdQuery.fetch( { id } ).pipe(
-            map( response => response.data.getCustomerById )
+            map( response => response.data.orders.getCustomerById )
         );
     }
 
     update$( input: Customer ): Observable<Customer> {
         return this.updateCustomerQuery.mutate( { input } ).pipe(
-            map( response => response.data.updateCustomer )
+            map( ( response: { data: UpdateCustomerResponse } ) => response.data.orders.updateCustomer )
         );
     }
 
     create$( input: Customer ): Observable<Customer> {
         delete input.id;
         return this.createCustomerQuery.mutate( { input } ).pipe(
-            map( response => response.data.createCustomer ),
+            map( ( response: { data: CreateCustomerResponse } ) => response.data.orders.createCustomer ),
             switchMap( response => from( this.apollo.getClient().resetStore().then( () => response ) ) ),
         );
     }
 
     delete$( id: number ): Observable<number> {
         return this.deleteCustomerQuery.mutate( { id } ).pipe(
-            map( response => response.data.deleteCustomer ),
+            map( ( response: { data: DeleteCustomerResponse } ) => response.data.orders.deleteCustomer ),
             switchMap( responseId => from( this.apollo.getClient().resetStore().then( () => responseId ) ) ),
         );
     }
 
     getFilteredItems$( page = 0, size = DEFAULT_PAGE_SIZE, queryText = '' ): Observable<PagedResponse<Customer>> {
         return this.getAllCustomerQuery.fetch( { page, size, queryText } ).pipe(
-            map( response => response.data.getAllCustomer )
+            map( response => response.data.orders.getAllCustomer )
         );
     }
 }

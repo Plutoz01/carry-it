@@ -5,21 +5,25 @@ import { Vehicle } from '../../../domain';
 import { PagedResponse } from '../../models/pagination.interface';
 
 export interface GetAllVehicleResponse {
-    getAllVehicle: PagedResponse<Vehicle>;
+    vehicles: {
+        getAllVehicle: PagedResponse<Vehicle>;
+    };
 }
 
 @Injectable()
 export class GetAllVehicleQuery extends Query<GetAllVehicleResponse> {
     document = gql`
         query GetAllVehicle($page: Int!, $size: Int!) {
-            getAllVehicle(page: {page: $page, size: $size}) {
-                pageInfo { totalElements, totalPages }
-                items {
-                    id
-                    licencePlate
-                    depotId
-                    depot {
-                        id, name
+            vehicles {
+                getAllVehicle(page: {page: $page, size: $size}) {
+                    pageInfo { totalElements, totalPages }
+                    items {
+                        id
+                        licencePlate
+                        depotId
+                        depot {
+                            id, name
+                        }
                     }
                 }
             }

@@ -4,14 +4,18 @@ import gql from 'graphql-tag';
 import { Customer } from '../../../domain';
 
 export interface UpdateCustomerResponse {
-    updateCustomer: Customer;
+    orders: {
+        updateCustomer: Customer;
+    };
 }
 
 @Injectable()
 export class UpdateCustomerQuery extends Mutation<UpdateCustomerResponse> {
     document = gql`
-        mutation UpdateCustomer($input: UpdateCustomerInput!) {
-            updateCustomer(input: $input) { id, name }
+        mutation UpdateCustomer($input: Orders_UpdateCustomerInput!) {
+            orders {
+                updateCustomer(input: $input) { id, name }
+            }
         }
     `;
 }

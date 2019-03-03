@@ -3,14 +3,18 @@ import { Mutation } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 export interface DeleteVehicleResponse {
-    deleteVehicle: number;
+    vehicles: {
+        deleteVehicle: number;
+    };
 }
 
 @Injectable()
 export class DeleteVehicleQuery extends Mutation<DeleteVehicleResponse> {
     document = gql`
         mutation DeleteVehicle($id: ID!) {
-            deleteVehicle(id: $id)
+            vehicles {
+                deleteVehicle(id: $id)
+            }
         }
     `;
 }

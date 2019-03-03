@@ -5,7 +5,7 @@
 import { AppConfig } from '../app/core/models/app-config.interface';
 
 const appConfig: AppConfig = {
-    graphqlUrl: 'http://localhost:8100/graphql'
+    graphqlUrl: 'http://localhost:4000/graphql'
 };
 
 export const environment = {

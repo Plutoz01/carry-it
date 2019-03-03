@@ -4,16 +4,20 @@ import gql from 'graphql-tag';
 import { Customer } from '../../../domain';
 
 export interface GetCustomerByIdResponse {
-    getCustomerById: Customer | null;
+    orders: {
+        getCustomerById: Customer | null;
+    };
 }
 
 @Injectable()
 export class GetCustomerByIdQuery extends Query<GetCustomerByIdResponse> {
     document = gql`
         query GetCustomerById($id: ID!) {
-            getCustomerById(id: $id) {
-                id
-                name
+            orders {
+                getCustomerById(id: $id) {
+                    id
+                    name
+                }
             }
         }
     `;

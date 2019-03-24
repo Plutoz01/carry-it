@@ -6,7 +6,6 @@ import com.plutoz.carryit.order.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,8 +17,8 @@ public class CustomerServiceImpl extends AbstractCrudService<Customer, Long> imp
     private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerServiceImpl(JpaRepository<Customer, Long> jpaRepository, CustomerRepository customerRepository) {
-        super(jpaRepository);
+    public CustomerServiceImpl(CustomerRepository customerRepository) {
+        super(customerRepository);
         this.customerRepository = customerRepository;
     }
 

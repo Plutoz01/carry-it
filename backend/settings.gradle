@@ -1,0 +1,5 @@
+rootProject.name = 'Carry-it backend'
+
+include 'common-lib'
+include 'order-ms'
+include 'vehicle-ms'

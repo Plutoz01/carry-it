@@ -4,14 +4,18 @@ import gql from 'graphql-tag';
 import { Depot } from '../../../domain';
 
 export interface CreateDepotResponse {
-    createDepot: Depot;
+    vehicles: {
+        createDepot: Depot;
+    };
 }
 
 @Injectable()
 export class CreateDepotQuery extends Mutation<CreateDepotResponse> {
     document = gql`
-        mutation CreateDepot($input: CreateDepotInput!) {
-            createDepot( input: $input) { id, name }
+        mutation CreateDepot($input: Vehicles_CreateDepotInput!) {
+            vehicles {
+                createDepot( input: $input) { id, name }
+            }
         }
     `;
 }

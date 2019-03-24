@@ -1,0 +1,29 @@
+extend type Query {
+    getAllCustomer(page: Page, queryText: String): PagedCustomers!
+    getCustomerById(id: ID!): Customer
+}
+
+extend type Mutation {
+    createCustomer(input: CreateCustomerInput!): Customer!
+    updateCustomer(input: UpdateCustomerInput!): Customer!
+    deleteCustomer(id: ID!): ID!
+}
+
+type Customer {
+    id: ID!
+    name: String!
+}
+
+type PagedCustomers {
+    items: [Customer]!
+    pageInfo: PageInfo!
+}
+
+input CreateCustomerInput {
+    name: String!
+}
+
+input UpdateCustomerInput {
+    id: ID!
+    name: String!
+}

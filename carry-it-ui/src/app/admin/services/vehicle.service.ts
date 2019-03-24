@@ -6,11 +6,11 @@ import { AbstractFilterableDataProvider } from '../../data-handling/abstract-fil
 import { ICrudService } from '../../data-handling/crud-service.interface';
 import { Vehicle } from '../../domain';
 import { DEFAULT_PAGE_SIZE, PagedResponse } from '../../graphql-api/models/pagination.interface';
-import { CreateVehicleQuery } from '../../graphql-api/queries/vehicles/create.query';
-import { DeleteVehicleQuery } from '../../graphql-api/queries/vehicles/delete.query';
+import { CreateVehicleQuery, CreateVehicleResponse } from '../../graphql-api/queries/vehicles/create.query';
+import { DeleteVehicleQuery, DeleteVehicleResponse } from '../../graphql-api/queries/vehicles/delete.query';
 import { GetAllVehicleQuery } from '../../graphql-api/queries/vehicles/get-all.query';
 import { GetVehicleByIdQuery } from '../../graphql-api/queries/vehicles/get-by-id.query';
-import { UpdateVehicleQuery } from '../../graphql-api/queries/vehicles/update.query';
+import { UpdateVehicleQuery, UpdateVehicleResponse } from '../../graphql-api/queries/vehicles/update.query';
 
 @Injectable()
 export class VehicleService extends AbstractFilterableDataProvider<Vehicle> implements ICrudService<number, Vehicle> {
@@ -28,7 +28,7 @@ export class VehicleService extends AbstractFilterableDataProvider<Vehicle> impl
 
     getById$( id: number ): Observable<Vehicle | null> {
         return this.getVehicleByIdQuery.fetch( { id } ).pipe(
-            map( response => response.data.getVehicleById )
+            map( response => response.data.vehicles.getVehicleById )
         );
     }
 
@@ -40,7 +40,7 @@ export class VehicleService extends AbstractFilterableDataProvider<Vehicle> impl
         };
 
         return this.updateVehicleQuery.mutate( { input: vehicleInput } ).pipe(
-            map( response => response.data.updateVehicle )
+            map( ( response: { data: UpdateVehicleResponse } ) => response.data.vehicles.updateVehicle )
         );
     }
 
@@ -50,14 +50,14 @@ export class VehicleService extends AbstractFilterableDataProvider<Vehicle> impl
             depotId: this.fetchDepotId( input )
         };
         return this.createVehicleQuery.mutate( { input: vehicleInput } ).pipe(
-            map( response => response.data.createVehicle ),
+            map( ( response: { data: CreateVehicleResponse } ) => response.data.vehicles.createVehicle ),
             switchMap( response => from( this.apollo.getClient().resetStore().then( () => response ) ) ),
         );
     }
 
     delete$( id: number ): Observable<number> {
         return this.deleteVehicleQuery.mutate( { id } ).pipe(
-            map( response => response.data.deleteVehicle ),
+            map( ( response: { data: DeleteVehicleResponse } ) => response.data.vehicles.deleteVehicle ),
             switchMap( responseId => from( this.apollo.getClient().resetStore().then( () => responseId ) ) ),
         );
     }
@@ -77,7 +77,7 @@ export class VehicleService extends AbstractFilterableDataProvider<Vehicle> impl
 
     protected getFilteredItems$( page = 0, size = DEFAULT_PAGE_SIZE, queryText = '' ): Observable<PagedResponse<Vehicle>> {
         return this.getAllVehicleQuery.fetch( { page, size, queryText } ).pipe(
-            map( response => response.data.getAllVehicle )
+            map( response => response.data.vehicles.getAllVehicle )
         );
     }
 }

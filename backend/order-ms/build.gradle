@@ -7,4 +7,5 @@ dependencies {
 
 	testImplementation group: 'junit', name: 'junit', version: "${rootProject.junitVersion}"
 	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+	testImplementation group: 'com.h2database', name: 'h2', version: '1.4.197'
 }

@@ -11,6 +11,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - db
+    healthcheck:
+      test: curl -f http://localhost:8080/actuator/health || exit 1
+      interval: 10s
+      retries: 3
 
   vehicle-service:
     container_name: vehicle-service
@@ -23,6 +27,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - db
+    healthcheck:
+      test: curl -f http://localhost:8080/actuator/health || exit 1
+      interval: 10s
+      retries: 3
 
   graphql-api:
     container_name: graphql-api
@@ -39,7 +47,7 @@ services:
 
   db:
     container_name: postgres-db
-    image: postgres:latest
+    image: carry-it/postgres:latest
     restart: on-failure
     ports:
       - 5432:5432

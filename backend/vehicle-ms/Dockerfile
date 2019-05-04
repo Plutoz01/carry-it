@@ -1,4 +1,4 @@
-FROM openjdk:11-jre
+FROM openjdk:latest
 VOLUME /tmp
 
 ARG JAR_FILE="build/libs/vehicle-ms-0.0.1-SNAPSHOT.jar"

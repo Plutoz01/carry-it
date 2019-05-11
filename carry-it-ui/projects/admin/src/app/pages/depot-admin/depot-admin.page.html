@@ -1,0 +1,24 @@
+<div class="mt-3 ml-3">
+	<ci-common-master-detail
+			[listItemTemplate]="depotItemTpl"
+			[listTrackByFn]="listItemTrackByFn"
+			[selected]="detailsItem$ | async"
+			[detailsItem]="detailsItem$ | async"
+			[detailsTemplate]="depotDetailsTpl"
+			[queryText]="queryText$ | async"
+			(selectionChange)="onSelectionChange($event)"
+			(filter)="onFilter($event)"
+			(new)="onNew()"
+	></ci-common-master-detail>
+</div>
+
+<ng-template #depotItemTpl let-depot let-isSelected="isSelected">
+	<label [ngClass]="{ 'font-weight-bold': isSelected }">{{depot.name}}</label>
+	<span class="badge badge-pill badge-info ml-2">{{depot?.vehicleCount || 0}} vehicle(s)</span>
+</ng-template>
+
+<ng-template #depotDetailsTpl let-depot>
+	<ci-admin-depot-edit-form [depot]="depot" (save)="onSave($event)" (delete)="onDelete($event)"></ci-admin-depot-edit-form>
+</ng-template>
+
+<ci-common-loading-overlay *ngIf="isLoading$ | async"></ci-common-loading-overlay>

@@ -1,0 +1,32 @@
+<div class="ci-pageable-list">
+	<ci-common-template-list [items]="items"
+							 [itemTemplate]="itemTemplate"
+							 [trackByFn]="trackByFn"
+							 [selectable]="selectable"
+							 [selected]="selected"
+							 (itemClick)="itemClick.emit( $event )"
+							 (selectionChange)="selectionChange.emit( $event )"
+	></ci-common-template-list>
+
+	<div class="d-flex justify-content-between m-2">
+		<span *ngIf="itemsCount !== undefined">
+			Total items: {{ itemsCount }}
+		</span>
+
+		<ci-common-paginator [actualPage]="actualPage"
+							 [totalPages]="totalPages"
+							 [firstAndLastButtonVisible]="firstAndLastButtonVisible"
+							 [prevAndNextButtonVisible]="prevAndNextButtonVisible"
+							 [pageRangeWidth]="pageRangeWidth"
+							 (pageChange)="pageChange.emit( $event )">
+		</ci-common-paginator>
+
+		<span>
+			<label class="mr-2 ml-2">Items per page:</label>
+			<select [ngModel]="pageSize"
+					(ngModelChange)="onPageSizeChange( $event )">
+				<option *ngFor="let pageSize of pageSizes" [value]="pageSize">{{pageSize}}</option>
+			</select>
+		</span>
+	</div>
+</div>

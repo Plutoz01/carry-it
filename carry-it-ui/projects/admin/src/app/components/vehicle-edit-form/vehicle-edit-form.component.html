@@ -1,0 +1,30 @@
+<form [formGroup]="vehicleForm" class="p-3">
+	<ci-common-crud-form-actions
+			[deletable]="isDeletable"
+			[savable]="isSavable"
+			(save)="onSave()"
+			(reset)="onReset()"
+			(delete)="delete.emit(vehicle)">
+	</ci-common-crud-form-actions>
+
+	<input type="hidden" formControlName="id">
+
+	<div class="form-group">
+		<label>
+			Depot
+			<small>
+				<a *ngIf="vehicle?.depot" routerLink="../depots" [queryParams]="{id: vehicle.depot.id}">Jump to</a>
+			</small>
+		</label>
+
+		<ci-common-dropdown-search formControlName="depot" displayKey="name"
+								   [results]="depotSearchResult$|async"
+								   (search)="onDepotSearch($event)">
+		</ci-common-dropdown-search>
+	</div>
+
+	<div class="form-group">
+		<label for="licencePlate">Licence plate</label>
+		<input id="licencePlate" formControlName="licencePlate" type="text" class="form-control" placeholder="Enter licence plate">
+	</div>
+</form>

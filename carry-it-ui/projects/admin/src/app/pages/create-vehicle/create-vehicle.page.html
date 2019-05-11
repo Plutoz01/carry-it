@@ -1,0 +1,5 @@
+<ci-admin-create-entity [formTemplate]="formTemplate"></ci-admin-create-entity>
+
+<ng-template #formTemplate let-onSave="onSaveFn">
+	<ci-admin-vehicle-edit-form [vehicle]="initial" (save)="onSave($event)"></ci-admin-vehicle-edit-form>
+</ng-template>

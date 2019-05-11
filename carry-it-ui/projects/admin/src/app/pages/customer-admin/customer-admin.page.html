@@ -1,0 +1,23 @@
+<div class="mt-3 ml-3">
+	<ci-common-master-detail
+			[listItemTemplate]="customerItemTpl"
+			[listTrackByFn]="listItemTrackByFn"
+			[selected]="detailsItem$ | async"
+			[detailsItem]="detailsItem$ | async"
+			[detailsTemplate]="customerDetailsTpl"
+			[queryText]="queryText$ | async"
+			(selectionChange)="onSelectionChange($event)"
+			(filter)="onFilter($event)"
+			(new)="onNew()"
+	></ci-common-master-detail>
+</div>
+
+<ng-template #customerItemTpl let-customer let-isSelected="isSelected">
+	<label [ngClass]="{ 'font-weight-bold': isSelected }">{{customer.name}}</label>
+</ng-template>
+
+<ng-template #customerDetailsTpl let-customer>
+	<ci-admin-customer-edit-form [customer]="customer" (save)="onSave($event)" (delete)="onDelete($event)"></ci-admin-customer-edit-form>
+</ng-template>
+
+<ci-common-loading-overlay *ngIf="isLoading$ | async"></ci-common-loading-overlay>

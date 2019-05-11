@@ -1,0 +1,33 @@
+<div class="ci-master-detail row">
+	<div class="col-lg-3 col-4">
+		<div>
+			<div class="d-flex justify-content-end">
+				<button type="button" class="btn btn-link" (click)="new.emit()">
+					<fa-icon [icon]="addIcon"></fa-icon>
+					Create new
+				</button>
+			</div>
+
+			<div class="input-group input-group-sm mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<fa-icon [icon]="searchIcon"></fa-icon>
+					</span>
+				</div>
+				<input #searchInput type="text" class="form-control" placeholder="Search" aria-label="Search"
+					   (input)="onSearch(searchInput.value)">
+			</div>
+			<ci-common-consumer-pageable-list
+					[itemTemplate]="listItemTemplate"
+					[trackByFn]="listTrackByFn"
+					[selected]="selected"
+					(selectionChange)="selectionChange.emit( $event )"
+			></ci-common-consumer-pageable-list>
+		</div>
+	</div>
+	<div class="col-lg-9 col-8">
+		<ng-container *ngIf="detailsItem">
+			<ng-container *ngTemplateOutlet="detailsTemplate; context: { $implicit: detailsItem}"></ng-container>
+		</ng-container>
+	</div>
+</div>

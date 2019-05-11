@@ -1,0 +1,24 @@
+<div class="mt-3 ml-3">
+	<ci-common-master-detail
+			[listItemTemplate]="vehicleItemTpl"
+			[listTrackByFn]="listItemTrackByFn"
+			[selected]="detailsItem$ | async"
+			[detailsItem]="detailsItem$ | async"
+			[detailsTemplate]="vehicleDetailsTpl"
+			[queryText]="queryText$ | async"
+			(selectionChange)="onSelectionChange($event)"
+			(filter)="onFilter($event)"
+			(new)="onNew()"
+	></ci-common-master-detail>
+</div>
+
+<ng-template #vehicleItemTpl let-vehicle let-isSelected="isSelected">
+	<label [ngClass]="{ 'font-weight-bold': isSelected }">{{vehicle.licencePlate}}</label>
+	<span class="badge badge-pill badge-info ml-2">{{vehicle?.depot?.name}}</span>
+</ng-template>
+
+<ng-template #vehicleDetailsTpl let-vehicle>
+	<ci-admin-vehicle-edit-form [vehicle]="vehicle" (save)="onSave($event)" (delete)="onDelete($event)"></ci-admin-vehicle-edit-form>
+</ng-template>
+
+<ci-common-loading-overlay *ngIf="isLoading$ | async"></ci-common-loading-overlay>

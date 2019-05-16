@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TemplateListModule } from '../../../../../common-ui/src/lib/template-list/template-list.module';
+import { TemplateListModule } from 'common-ui/lib/template-list/template-list.module';
 import { DepotService } from '../../services/depot.service';
 import { DepotServiceMock } from '../../test/services/depot.service.mock';
 import { DepotAdminPage } from './depot-admin.page';

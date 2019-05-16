@@ -5,6 +5,7 @@
     "ng": "ng",
     "start:admin": "ng serve admin",
 	"start:customer": "ng serve customer",
+	"build:all-libs": "ng build data-handling && ng build common-ui",
     "build:admin": "ng build admin",
 	"build:customer": "ng build customer",
     "test:admin": "ng test admin",

@@ -1,0 +1,13 @@
+@import "colors";
+
+// Override bootstrap variables
+$primary: $darken-amber-3;
+$yiq-contrasted-threshold: 161;
+
+
+// List group
+$list-group-hover-bg:               $lighten-amber-6;
+$list-group-action-color:           $darken-amber-3;
+$list-group-action-hover-color:      $darken-amber-4;
+$list-group-action-active-color:    $darken-amber-5;
+$list-group-action-active-bg:        $lighten-amber-5;

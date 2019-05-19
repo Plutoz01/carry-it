@@ -1,6 +1,6 @@
 <ul class="list-group">
 	<li *ngFor="let item of items; index as idx; count as cnt; trackBy: trackByFn"
-		[ngClass]="{ selected: isSelected(item) }"
+		[ngClass]="{ active: isSelected(item) }"
 		(click)="onItemClick(item)"
 		class="list-group-item">
 

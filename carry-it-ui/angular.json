@@ -29,6 +29,11 @@
             "styles": [
               "projects/customer/src/styles.scss"
             ],
+			"stylePreprocessorOptions": {
+			  "includePaths": [
+				"scss"
+			  ]
+			},
             "scripts": [],
             "es5BrowserSupport": true
           },
@@ -161,6 +166,11 @@
             "styles": [
               "projects/admin/src/styles.scss"
             ],
+			"stylePreprocessorOptions": {
+			  "includePaths": [
+				"scss"
+			  ]
+			},
             "scripts": [],
             "es5BrowserSupport": true
           },

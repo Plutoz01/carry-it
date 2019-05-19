@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
 import { ADMIN_COMPONENTS } from './components';
 import { GraphqlApiModule } from './graphql-api/graphql-api.module';
 import { ADMIN_PAGES } from './pages';
@@ -24,6 +25,7 @@ import { APP_CONFIG } from './tokens/app-config.token';
         ReactiveFormsModule,
         FontAwesomeModule,
 
+        AuthModule,
         CrudFormActionsModule,
         DropdownSearchModule,
         GraphqlApiModule,

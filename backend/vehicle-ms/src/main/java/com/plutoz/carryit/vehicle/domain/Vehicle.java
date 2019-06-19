@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 
@@ -23,4 +24,5 @@ public class Vehicle implements Identifiable<Long> {
     private Long id;
     private Long depotId;
     private String licencePlate;
+    private Point location;
 }

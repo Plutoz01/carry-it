@@ -63,3 +63,12 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@carryit.com
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+
+  graphiql:
+    container_name: graphiql
+    image: npalm/graphiql
+    restart: on-failure
+    ports:
+      - 8081:4000
+    environment:
+      API_URL: http://localhost:8081/graphql

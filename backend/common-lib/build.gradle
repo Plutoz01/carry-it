@@ -13,6 +13,10 @@ dependencies {
     api group: 'org.springframework.data', name: 'spring-data-jpa', version: "${rootProject.springBootVersion}"
     api group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter', version: "${rootProject.graphqlStarterVersion}"
 
+    // For geo-location support, hibernate-spatial must specified explicitly
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: "${rootProject.hibernateVersion}"
+    implementation group: 'org.hibernate', name: 'hibernate-spatial', version: "${rootProject.hibernateVersion}"
+
     testImplementation group: 'junit', name: 'junit', version: "${rootProject.junitVersion}"
     testImplementation group: 'com.graphql-java-kickstart', name: 'graphql-spring-boot-starter-test',  version: "${rootProject.graphqlStarterVersion}"
 }

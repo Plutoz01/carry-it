@@ -1,0 +1,5 @@
+type Location {
+    lon: Float!
+    lat: Float!
+    wkt: String!
+}

@@ -14,6 +14,7 @@ type Depot {
     name: String!
     vehicles: [Vehicle]!
     vehicleCount: Int!
+    location: Location
 }
 
 type PagedDepots {

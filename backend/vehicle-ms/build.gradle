@@ -10,4 +10,8 @@ dependencies {
     testImplementation group: 'junit', name: 'junit', version: "${rootProject.junitVersion}"
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testImplementation group: 'com.h2database', name: 'h2', version: '1.4.197'
+
+    // For geo-location support, hibernate-spatial must specified explicitly
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: "${rootProject.hibernateVersion}"
+    implementation group: 'org.hibernate', name: 'hibernate-spatial', version: "${rootProject.hibernateVersion}"
 }

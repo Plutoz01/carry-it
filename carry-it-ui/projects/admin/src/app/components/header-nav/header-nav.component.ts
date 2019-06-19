@@ -14,7 +14,7 @@ export class HeaderNavComponent {
     }
 
     private logout(): void {
-        this.authService.logout$().pipe(
+        this.authService.signOut$().pipe(
             switchMap( () => of( this.router.navigate( [ '/' ] ) ) )
         ).subscribe();
     }

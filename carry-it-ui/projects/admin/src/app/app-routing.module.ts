@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IsAuthenticatedGuard } from './auth/is-authenticated.guard';
-import { LoginPage } from './auth/pages/login/login.page';
+import { AuthPage } from './auth/pages/auth-page.component';
 import { CreateCustomerPage } from './pages/create-customer/create-customer.page';
 import { CreateDepotPage } from './pages/create-depot/create-depot.page';
 import { CreateVehiclePage } from './pages/create-vehicle/create-vehicle.page';
@@ -14,10 +14,10 @@ import { DepotQueryParamResolver } from './resolvers/depot-query-param.resolver'
 import { VehicleQueryParamResolver } from './resolvers/vehicle-query-param.resolver';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'auth', pathMatch: 'full' },
     {
-        path: 'login',
-        component: LoginPage
+        path: 'auth',
+        component: AuthPage
     },
     {
         path: 'admin',

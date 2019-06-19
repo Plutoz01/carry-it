@@ -1,0 +1,14 @@
+@import "global";
+
+.sign-in-form {
+  width: 22rem;
+  background: $white;
+  border-color: $gray-800;
+  border-radius: 2px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+
+  .form-header {
+	background: $gray-800;
+	color: $white;
+  }
+}

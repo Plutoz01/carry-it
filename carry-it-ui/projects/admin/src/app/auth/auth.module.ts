@@ -2,11 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LoginPage } from './pages/login/login.page';
+import { AuthPage } from './pages/auth-page.component';
+import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
+import { RequireNewPasswordFormComponent } from './components/require-new-password-form/require-new-password-form.component';
 
 @NgModule( {
     declarations: [
-        LoginPage
+        AuthPage,
+        SignInFormComponent,
+        RequireNewPasswordFormComponent
     ],
     imports: [
         CommonModule,
@@ -14,7 +18,7 @@ import { LoginPage } from './pages/login/login.page';
         ReactiveFormsModule
     ],
     exports: [
-        LoginPage
+        AuthPage
     ]
 } )
 export class AuthModule {

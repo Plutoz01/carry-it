@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "carry-it-ui-dev-20190519155152-authRole",
+            "UnauthRoleArn": "arn:aws:iam::965295834176:role/carry-it-ui-dev-20190519155152-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::965295834176:role/carry-it-ui-dev-20190519155152-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "carry-it-ui-dev-20190519155152-deployment",
+            "UnauthRoleName": "carry-it-ui-dev-20190519155152-unauthRole",
+            "StackName": "carry-it-ui-dev-20190519155152",
+            "StackId": "arn:aws:cloudformation:eu-west-1:965295834176:stack/carry-it-ui-dev-20190519155152/4135cf30-7a3d-11e9-9059-0a4044c481ac"
+        },
+        "categories": {
+            "auth": {
+                "cognito404b0dcf": {}
+            }
+        }
+    }
+}

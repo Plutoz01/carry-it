@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { CrudFormActionsModule, DropdownSearchModule, LoadingOverlayModule, MasterDetailModule } from 'common-ui';
 import { environment } from '../environments/environment';
 
@@ -24,6 +25,7 @@ import { APP_CONFIG } from './tokens/app-config.token';
         FormsModule,
         ReactiveFormsModule,
         FontAwesomeModule,
+        AmplifyAngularModule,
 
         AuthModule,
         CrudFormActionsModule,
@@ -34,7 +36,8 @@ import { APP_CONFIG } from './tokens/app-config.token';
         AppRoutingModule
     ],
     providers: [
-        { provide: APP_CONFIG, useValue: environment.appConfig }
+        { provide: APP_CONFIG, useValue: environment.appConfig },
+        AmplifyService
     ],
     bootstrap: [ AppComponent ]
 } )

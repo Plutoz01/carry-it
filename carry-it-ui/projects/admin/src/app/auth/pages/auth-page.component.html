@@ -1,0 +1,11 @@
+<div class="auth-page">
+	<ci-admin-sign-in-form *ngIf="loginFormVisible$ | async"
+						   [invalidCredentialsSubmitted]="isInvalidCredentialsSubmitted$ | async"
+						   (submitForm)="onSignIn($event)">
+	</ci-admin-sign-in-form>
+
+	<ci-admin-require-new-password *ngIf="requireNewPasswordFormVisible$ | async"
+			[attributes]="requiredAttributes"
+			(submitForm)="onCompleteNewPassword($event)">
+	</ci-admin-require-new-password>
+</div>

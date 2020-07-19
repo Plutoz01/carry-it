@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 public interface DepotService extends CrudService<Depot, Long> {
 
-    Sort DEFAULT_SORT = new Sort(Sort.Direction.DESC, "id");
+    Sort DEFAULT_SORT = Sort.by(Sort.Direction.DESC, "id");
 
     CompletableFuture<List<Depot>> findByIds(List<Long> ids);
 

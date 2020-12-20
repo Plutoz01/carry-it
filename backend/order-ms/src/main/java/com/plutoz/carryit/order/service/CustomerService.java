@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 
 public interface CustomerService extends CrudService<Customer, Long> {
 
-    Sort DEFAULT_SORT = new Sort(Sort.Direction.DESC, "id");
+    Sort DEFAULT_SORT = Sort.by(Sort.Direction.DESC, "id");
 
     Page<Customer> findByName(String queryText, Pageable pageable);
 }

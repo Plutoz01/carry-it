@@ -7,10 +7,10 @@ services:
     ports:
       - 8101:8080
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db/carryit-order
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg-db/carryit-order
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     depends_on:
-      - db
+      - pg-db
     healthcheck:
       test: curl -f http://localhost:8080/actuator/health || exit 1
       interval: 10s
@@ -23,10 +23,10 @@ services:
     ports:
       - 8102:8080
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db/carryit-vehicle
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg-db/carryit-vehicle
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     depends_on:
-      - db
+      - pg-db
     healthcheck:
       test: curl -f http://localhost:8080/actuator/health || exit 1
       interval: 10s
@@ -45,21 +45,40 @@ services:
       - order-service
       - vehicle-service
 
-  db:
+  pg-db:
     container_name: postgres-db
-    image: carry-it/postgres:latest
+    image: postgres:13.1
     restart: on-failure
     ports:
       - 5432:5432
+    volumes:
+      - ./ops/postgres/init:/docker-entrypoint-initdb.d:ro
+      - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
 
-  pgAdmin:
+  pg-admin:
     container_name: pgAdmin4
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     restart: on-failure
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./ops/pgadmin/servers.json:/pgadmin4/servers.json:ro
     ports:
       - 8080:80
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@carryit.com
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      # Application log level - one of:
+      #   CRITICAL 50
+      #   ERROR    40
+      #   WARNING  30
+      #   SQL      25
+      #   INFO     20
+      #   DEBUG    10
+      #   NOTSET    0
+      PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: 30
+
+volumes:
+  postgres-data:
+  pgadmin-data:

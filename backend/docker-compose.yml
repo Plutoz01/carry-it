@@ -47,7 +47,7 @@ services:
 
   pg-db:
     container_name: postgres-db
-    image: postgres:13.1
+    image: library/postgres:13.2-alpine
     restart: on-failure
     ports:
       - 5432:5432

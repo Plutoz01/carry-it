@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vehicle-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: vehicle-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: vehicle-service
+    spec:
+      containers:
+        - name: vehicle-service
+          image: localhost:32000/carry-it/vehicle-ms:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://10.1.63.1/carryit-vehicle
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: password
+          resources:
+            requests:
+              memory: '64Mi'
+            limits:
+              memory: '256Mi'

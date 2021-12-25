@@ -1,6 +1,7 @@
 # Jetbrains IDEs
 
 .idea/*
+.run/*
 
 # File-based project format
 *.iws
